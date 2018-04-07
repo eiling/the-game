@@ -44,7 +44,7 @@ public class Renderer{
 
         programID = Shader.load("VertexShader.glsl", "FragmentShader.glsl");
 
-        texture = Texture.load("./textures/Ship1.bmp");
+        texture = Texture.load("./textures/Ship.png");
 
         vertices = MemoryUtil.memAllocFloat(BUFFER_SIZE);
 

@@ -16,7 +16,6 @@ public class Game{
     private Renderer renderer;
 
     private Ship ship;
-    private Ship ship2;
 
     private void start(){
         init();
@@ -40,7 +39,6 @@ public class Game{
         renderer.init();
 
         ship = new Ship(0f, 0f, 0.2f);
-        ship2 = new Ship(0.5f, 0f, 0.2f);
     }
 
     private void loop(){
@@ -50,10 +48,8 @@ public class Game{
             if(window.isClosing()) break;
 
             ship.update();
-            ship2.update();
 
             ship.render(renderer);
-            ship2.render(renderer);
 
             renderer.draw();
 
