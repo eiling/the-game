@@ -3,18 +3,10 @@ package bullethell.core;
 import bullethell.game.Ship;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
-import bullethell.math.Trig;
 import org.lwjgl.glfw.GLFWErrorCallback;
-
-import java.awt.desktop.SystemEventListener;
 
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 
 public class Game{
     private GLFWErrorCallback errorCallback;
@@ -24,6 +16,7 @@ public class Game{
     private Renderer renderer;
 
     private Ship ship;
+    private Ship ship2;
 
     private void start(){
         init();
@@ -46,22 +39,22 @@ public class Game{
         renderer = new Renderer();
         renderer.init();
 
-        ship = new Ship(0f, 0f);
+        ship = new Ship(0f, 0f, 0.2f);
+        ship2 = new Ship(0.5f, 0f, 0.2f);
     }
 
     private void loop(){
-        float[] color = {1f,0f,0f};
-        float i = 0;
         while(true){
             long start = System.currentTimeMillis();
 
             if(window.isClosing()) break;
 
-            //ship.render(renderer);
+            ship.update();
+            ship2.update();
 
-            i -= 0.02f;
-            if(i > 2) i = 0f;
-            renderer.drawStar(0f,0f,0.5f,0.5f,4, Trig.PI * i);
+            ship.render(renderer);
+            ship2.render(renderer);
+
             renderer.draw();
 
             window.update();

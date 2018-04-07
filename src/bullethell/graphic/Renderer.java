@@ -1,15 +1,14 @@
 package bullethell.graphic;
 
-import bullethell.math.Trig;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glUniform1i;
 import static org.lwjgl.opengl.GL20.glDeleteProgram;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
@@ -24,6 +23,19 @@ public class Renderer{
     private FloatBuffer vertices;
     private int numVertices;
 
+    private Texture texture;
+
+    private static final float[] uv = {
+            0f, 0f, //ship frame 1
+            0.5f, 0f,
+            0.5f, 1f,
+            0f, 1f,
+            0.5f, 0f, //ship frame 2
+            1f, 0f,
+            1f, 1f,
+            0.5f, 1f
+    };
+
     private static final int BUFFER_SIZE = Float.BYTES * 1024;
 
     public void init(){
@@ -32,16 +44,21 @@ public class Renderer{
 
         programID = Shader.load("VertexShader.glsl", "FragmentShader.glsl");
 
+        texture = Texture.load("./textures/Ship1.bmp");
+
         vertices = MemoryUtil.memAllocFloat(BUFFER_SIZE);
 
         vertexBufferID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 
+        int textureSamplerUniform = glGetUniformLocation(programID, "textureSampler");
+        glUniform1i(textureSamplerUniform, 0);
+
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 5*Float.BYTES, 0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 4*Float.BYTES, 0);
 
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 5*Float.BYTES, 2*Float.BYTES);
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 4*Float.BYTES, 2*Float.BYTES);
     }
 
     public void draw(){
@@ -50,6 +67,8 @@ public class Renderer{
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(programID);
+
+        texture.bind();
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
         glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
@@ -60,43 +79,31 @@ public class Renderer{
         numVertices = 0;
     }
 
-    public void drawPolygon(float x, float y, float radius, float[] color, int t){
-        final int TRIANGLES = t;
-        for(int i = 0; i < TRIANGLES; i++){
-            vertices.put(x)
-                    .put(y)
-                    .put(color);
-            vertices.put(x + radius * Trig.cos(Trig.TWO_PI * i / TRIANGLES))
-                    .put(y + radius * Trig.sin(Trig.TWO_PI * i / TRIANGLES))
-                    .put(color);
-            vertices.put(x + radius * Trig.cos(Trig.TWO_PI * (i + 1) / TRIANGLES))
-                    .put(y + radius * Trig.sin(Trig.TWO_PI * (i + 1) / TRIANGLES))
-                    .put(color);
+    public void drawTexture(float x, float y, float k,  int currentFrame){
+        /*vertices.put(x - 0.2f).put(y - 0.2f).put(0f).put(0f);
+        vertices.put(x + 0.2f).put(y - 0.2f).put(1f).put(0f);
+        vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
+        vertices.put(x - 0.2f).put(y - 0.2f).put(0f).put(0f);
+        vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
+        vertices.put(x - 0.2f).put(y + 0.2f).put(0f).put(1f);*/
 
-            numVertices += 3;
-        }
-    }
+        currentFrame *= 8;
 
-    public void drawStar(float x, float y, float radius, float k, int t, float phi){
-        final int TRIANGLES = t;
-        for(int i = 0; i < TRIANGLES; i++){
-            vertices.put(x)
-                    .put(y)
-                    .put(1f).put(0f).put(0f);
-            vertices.put(x + radius * Trig.cos(Trig.TWO_PI * i / TRIANGLES + phi))
-                    .put(y + radius * Trig.sin(Trig.TWO_PI * i / TRIANGLES + phi))
-                    .put(1f).put(0f).put(0f);
-            vertices.put(x + k * radius * Trig.cos(Trig.TWO_PI * (i + 1) / TRIANGLES + phi))
-                    .put(y + k * radius * Trig.sin(Trig.TWO_PI * (i + 1) / TRIANGLES + phi))
-                    .put(0.2f).put(0f).put(0f);
+        vertices.put(x - k).put(y - k).put(uv[currentFrame + 0]).put(uv[currentFrame + 1]);
+        vertices.put(x + k).put(y - k).put(uv[currentFrame + 2]).put(uv[currentFrame + 3]);
+        vertices.put(x + k).put(y + k).put(uv[currentFrame + 4]).put(uv[currentFrame + 5]);
+        vertices.put(x - k).put(y - k).put(uv[currentFrame + 0]).put(uv[currentFrame + 1]);
+        vertices.put(x + k).put(y + k).put(uv[currentFrame + 4]).put(uv[currentFrame + 5]);
+        vertices.put(x - k).put(y + k).put(uv[currentFrame + 6]).put(uv[currentFrame + 7]);
 
-            numVertices += 3;
-        }
+        numVertices += 6;
     }
 
     public void dispose(){
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+
+        texture.delete();
 
         glDeleteBuffers(vertexBufferID);
         glDeleteProgram(programID);
