@@ -29,21 +29,21 @@ public class Window{
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         id = glfwCreateWindow(width, height, title, NULL, NULL);
-        if(id==NULL){
+        if(id == NULL){
             glfwTerminate();
             throw new RuntimeException("Failed to create the GLFW window!");
         }
 
-        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(id,
-                (vidmode.width() - width) / 2,
-                (vidmode.height() - height) / 2
+                (vidMode.width() - width) / 2,
+                (vidMode.height() - height) / 2
         );
 
         glfwMakeContextCurrent(id);
         GL.createCapabilities();
 
-        glClearColor(0f, 0f, 0f, 1f);
+        glClearColor(0f, 0f, 0.4f, 1f);
 
         keyCallback = new GLFWKeyCallback() {
             @Override
@@ -66,6 +66,7 @@ public class Window{
     }
 
     public void dispose(){
+        glfwDestroyWindow(id);
         glfwTerminate();
     }
 }

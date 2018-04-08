@@ -15,6 +15,8 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
+import static bullethell.graphic.Texture.*;
+
 public class Renderer{
     private int vertexArrayID;
     private int vertexBufferID;
@@ -25,17 +27,6 @@ public class Renderer{
 
     private Texture texture;
 
-    private static final float[] uv = {
-            0f, 0f, //ship frame 1
-            0.5f, 0f,
-            0.5f, 1f,
-            0f, 1f,
-            0.5f, 0f, //ship frame 2
-            1f, 0f,
-            1f, 1f,
-            0.5f, 1f
-    };
-
     private static final int BUFFER_SIZE = Float.BYTES * 1024;
 
     public void init(){
@@ -44,7 +35,7 @@ public class Renderer{
 
         programID = Shader.load("VertexShader.glsl", "FragmentShader.glsl");
 
-        texture = Texture.load("./textures/Ship.png");
+        texture = load();
 
         vertices = MemoryUtil.memAllocFloat(BUFFER_SIZE);
 
@@ -59,6 +50,9 @@ public class Renderer{
 
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, false, 4*Float.BYTES, 2*Float.BYTES);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void draw(){
@@ -79,7 +73,7 @@ public class Renderer{
         numVertices = 0;
     }
 
-    public void drawTexture(float x, float y, float k,  int currentFrame){
+    public void drawTexture(float x, float y, float k,  int texID){
         /*vertices.put(x - 0.2f).put(y - 0.2f).put(0f).put(0f);
         vertices.put(x + 0.2f).put(y - 0.2f).put(1f).put(0f);
         vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
@@ -87,14 +81,14 @@ public class Renderer{
         vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
         vertices.put(x - 0.2f).put(y + 0.2f).put(0f).put(1f);*/
 
-        currentFrame *= 8;
+        texID *= 4;
 
-        vertices.put(x - k).put(y - k).put(uv[currentFrame + 0]).put(uv[currentFrame + 1]);
-        vertices.put(x + k).put(y - k).put(uv[currentFrame + 2]).put(uv[currentFrame + 3]);
-        vertices.put(x + k).put(y + k).put(uv[currentFrame + 4]).put(uv[currentFrame + 5]);
-        vertices.put(x - k).put(y - k).put(uv[currentFrame + 0]).put(uv[currentFrame + 1]);
-        vertices.put(x + k).put(y + k).put(uv[currentFrame + 4]).put(uv[currentFrame + 5]);
-        vertices.put(x - k).put(y + k).put(uv[currentFrame + 6]).put(uv[currentFrame + 7]);
+        vertices.put(x - k).put(y - k).put(st[texID + 0]).put(st[texID + 1]);
+        vertices.put(x + k).put(y - k).put(st[texID + 2]).put(st[texID + 1]);
+        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
+        vertices.put(x - k).put(y - k).put(st[texID + 0]).put(st[texID + 1]);
+        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
+        vertices.put(x - k).put(y + k).put(st[texID + 0]).put(st[texID + 3]);
 
         numVertices += 6;
     }

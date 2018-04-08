@@ -14,14 +14,19 @@ import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 public class Texture{
     private int id;
 
-    public static Texture load(String path){
+    public static float[] st = new float[]{
+            0.53125f, 0.96875f, 0.546875f, 0.984375f, //Ship1
+            0.546875f, 0.96875f, 0.5625f, 0.984375f //Ship2
+    };
+
+    public static Texture load(){
         IntBuffer w = MemoryUtil.memAllocInt(1);
         IntBuffer h = MemoryUtil.memAllocInt(1);
         IntBuffer comp = MemoryUtil.memAllocInt(1);
 
         stbi_set_flip_vertically_on_load(true);
 
-        ByteBuffer data = stbi_load(path, w, h, comp, 0);
+        ByteBuffer data = stbi_load("./textures/atlas1.png", w, h, comp, 0);
         if (data == null) {
             throw new RuntimeException("Failed to load a texture file!"
                     + System.lineSeparator() + stbi_failure_reason());
