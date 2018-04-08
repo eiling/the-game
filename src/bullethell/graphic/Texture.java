@@ -14,9 +14,25 @@ import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 public class Texture{
     private int id;
 
-    public static float[] st = new float[]{
-            0.53125f, 0.96875f, 0.546875f, 0.984375f, //Ship1
-            0.546875f, 0.96875f, 0.5625f, 0.984375f //Ship2
+    public static final float[] st = new float[]{
+            0.53125f, 0.96875f, 0.546875f, 0.984375f, //Ship1 - texID == 0
+            0.546875f, 0.96875f, 0.5625f, 0.984375f, //Ship2 - texID == 1
+            0.5f, 1f - 0.015625f - 0.015625f, 0.515625f, 1f - 0.015625f, //Enemy1 - texID == 2
+            0.515625f, 1f - 0.015625f - 0.015625f, 0.53125f, 1f - 0.015625f, //Enemy2 - texID == 3
+            0.5f, 1f - 0.015625f, 0.515625f, 1f, //PowerUp1 - texID == 4
+            0.515625f, 1f - 0.015625f, 0.53125f, 1f, //PowerUp2 - texID == 5
+            0.53125f, 1f - 0.015625f, 0.546875f, 1f, //PowerUp3 - texID == 6
+            0.546875f, 1f - 0.015625f, 0.5625f, 1f, //PowerUp4 - texID == 7
+            0.5625f, 1f - 0.015625f, 0.578125f, 1f, //PowerUp5 - texID == 8
+            0.578125f, 1f - 0.015625f, 0.59375f, 1f, //PowerUp6 - texID == 9
+            0.59375f, 1f - 0.015625f, 0.609375f, 1f, //PowerUp7 - texID == 10
+            0.609375f, 1f - 0.015625f, 0.625f, 1f, //PowerUp8 - texID == 11
+            0.625f, 1f - 0.015625f, 0.640625f, 1f, //PowerUp9 - texID == 12
+            0.640625f, 1f - 0.015625f, 0.65625f, 1f, //PowerUp10 - texID == 13
+            0.65625f, 1f - 0.015625f, 0.671875f, 1f, //PowerUp11 - texID == 14
+            0.671875f, 1f - 0.015625f, 0.6875f, 1f, //PowerUp12 - texID == 15
+            0.6875f, 1f - 0.015625f, 0.703125f, 1f, //PowerUp13 - texID == 16
+            0.703125f, 1f - 0.015625f, 0.71875f, 1f, //PowerUp14 - texID == 17
     };
 
     public static Texture load(){

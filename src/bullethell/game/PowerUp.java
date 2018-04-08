@@ -2,9 +2,9 @@ package bullethell.game;
 
 import bullethell.math.Vec2f;
 
-public class Ship extends Entity{
-    public Ship(float x, float y){
-        super(0.2f,0.2f,0,2,500);
+public class PowerUp extends Entity{
+    public PowerUp(float x, float y){
+        super(0.2f,0.2f,4,14,80);
 
         this.x = x;
         this.y = y;

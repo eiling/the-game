@@ -74,13 +74,6 @@ public class Renderer{
     }
 
     public void drawTexture(float x, float y, float k,  int texID){
-        /*vertices.put(x - 0.2f).put(y - 0.2f).put(0f).put(0f);
-        vertices.put(x + 0.2f).put(y - 0.2f).put(1f).put(0f);
-        vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
-        vertices.put(x - 0.2f).put(y - 0.2f).put(0f).put(0f);
-        vertices.put(x + 0.2f).put(y + 0.2f).put(1f).put(1f);
-        vertices.put(x - 0.2f).put(y + 0.2f).put(0f).put(1f);*/
-
         texID *= 4;
 
         vertices.put(x - k).put(y - k).put(st[texID + 0]).put(st[texID + 1]);

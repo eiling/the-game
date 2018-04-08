@@ -1,5 +1,7 @@
 package bullethell.core;
 
+import bullethell.game.Enemy;
+import bullethell.game.PowerUp;
 import bullethell.game.Ship;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
@@ -16,6 +18,8 @@ public class Game{
     private Renderer renderer;
 
     private Ship ship;
+    private Enemy enemy;
+    private PowerUp powerUp;
 
     private void start(){
         init();
@@ -38,7 +42,9 @@ public class Game{
         renderer = new Renderer();
         renderer.init();
 
-        ship = new Ship(0f, 0f, 0.2f);
+        ship = new Ship(-0.5f, -0.5f);
+        enemy = new Enemy(0.5f, -0.5f);
+        powerUp = new PowerUp(-0.5f, 0.5f);
     }
 
     private void loop(){
@@ -48,8 +54,12 @@ public class Game{
             if(window.isClosing()) break;
 
             ship.update();
+            enemy.update();
+            powerUp.update();
 
             ship.render(renderer);
+            enemy.render(renderer);
+            powerUp.render(renderer);
 
             renderer.draw();
 
