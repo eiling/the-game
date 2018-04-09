@@ -4,15 +4,16 @@ import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
 abstract class Animated extends GameObject{
-    private final int startingFrame;
-    private int currentAnimationFrame;
-    private final int numberOfFrames;
-    private long lastFrameTime;
-    private final long frameInterval;
+    final int startingFrame;
+    int currentAnimationFrame;
+    final int numberOfFrames;
+    long lastFrameTime;
+    final long frameInterval;
 
     Animated(float x, float y, float scale, float velocity, Vec2f direction,
              int startingFrame, int numberOfFrames, long frameInterval){
         super(x,y,scale,velocity,direction);
+
         this.startingFrame = startingFrame;
         this.numberOfFrames = numberOfFrames;
         this.frameInterval = frameInterval;
@@ -21,7 +22,7 @@ abstract class Animated extends GameObject{
         lastFrameTime = -1;
     }
 
-    protected void updateAnimation(){
+    void updateAnimation(){
         if(lastFrameTime == -1) lastFrameTime = System.currentTimeMillis();
         else{
             long now = System.currentTimeMillis();

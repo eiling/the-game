@@ -8,9 +8,6 @@ public class BossWithNoName extends Boss{
         super(x,y,0.2f,0.01f,new Vec2f(0f,0f),
                 0,2,100, 0.2f);
     }
-    @Override
-    public void update(){
-    }
 
     @Override
     protected void move(){

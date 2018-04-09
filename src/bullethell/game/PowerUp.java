@@ -7,4 +7,13 @@ public abstract class PowerUp extends Solid{
                    int startingFrame, int numberOfFrames, long frameInterval, float hitRadius){
         super(x,y,scale,velocity,direction,startingFrame,numberOfFrames,frameInterval,hitRadius);
     }
+
+    @Override
+    public void update(){
+        updateAnimation();
+    }
+
+    @Override
+    protected void move(){
+    }
 }

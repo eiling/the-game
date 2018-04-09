@@ -1,7 +1,6 @@
 package bullethell.core;
 
-import bullethell.game.Enemy;
-import bullethell.game.PowerUp;
+import bullethell.game.Explosion;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
@@ -24,6 +23,7 @@ public class Game{
     private EnemyWithNoName enemy;
     private PowerUpWithNoName powerUp;
     private ExplosionWithNoName explosion;
+    private Explosion e;
 
     private void start(){
         init();
@@ -61,14 +61,26 @@ public class Game{
             player.input(window.id);
 
             player.update();
-            enemy.update();
+            if(enemy != null) enemy.update();
             powerUp.update();
-            explosion.update();
+            if(explosion != null) explosion.update();
+
+            if(e != null) e.update();
+
+            if(enemy != null && enemy.collided(player)){
+                e = enemy.explode();
+                enemy = null;
+            }
+
+            if(e != null && !e.isActive()) e = null;
+            if(explosion != null && !explosion.isActive()) explosion = null;
 
             player.render(renderer);
-            enemy.render(renderer);
+            if(enemy != null) enemy.render(renderer);
             powerUp.render(renderer);
-            explosion.render(renderer);
+            if(explosion != null) explosion.render(renderer);
+
+            if(e != null) e.render(renderer);
 
             renderer.draw();
 
