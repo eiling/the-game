@@ -14,9 +14,7 @@ import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window{
-    private final long id;
-
-    private final GLFWKeyCallback keyCallback;
+    public final long id;
 
     public Window(int width, int height, CharSequence title){
         glfwDefaultWindowHints();
@@ -45,15 +43,14 @@ public class Window{
 
         glClearColor(0f, 0f, 0.4f, 1f);
 
-        keyCallback = new GLFWKeyCallback() {
+        glfwSetKeyCallback(id, new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
                 if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
                     glfwSetWindowShouldClose(window, true);
                 }
             }
-        };
-        glfwSetKeyCallback(id, keyCallback);
+        });
     }
 
     public void update() {

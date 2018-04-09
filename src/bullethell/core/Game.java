@@ -53,6 +53,8 @@ public class Game{
 
             if(window.isClosing()) break;
 
+            ship.input(window.id);
+
             ship.update();
             enemy.update();
             powerUp.update();

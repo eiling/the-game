@@ -9,7 +9,8 @@ public class PowerUp extends Entity{
         this.x = x;
         this.y = y;
 
-        velocity = new Vec2f(0f,0f);
+        velocity = 0;
+        direction = new Vec2f(0f,0f);
     }
 
     @Override

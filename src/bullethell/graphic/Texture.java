@@ -14,7 +14,7 @@ import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 public class Texture{
     private int id;
 
-    public static final float[] st = new float[]{
+    static final float[] st = new float[]{
             0.53125f, 0.96875f, 0.546875f, 0.984375f, //Ship1 - texID == 0
             0.546875f, 0.96875f, 0.5625f, 0.984375f, //Ship2 - texID == 1
             0.5f, 1f - 0.015625f - 0.015625f, 0.515625f, 1f - 0.015625f, //Enemy1 - texID == 2
@@ -32,10 +32,10 @@ public class Texture{
             0.65625f, 1f - 0.015625f, 0.671875f, 1f, //PowerUp11 - texID == 14
             0.671875f, 1f - 0.015625f, 0.6875f, 1f, //PowerUp12 - texID == 15
             0.6875f, 1f - 0.015625f, 0.703125f, 1f, //PowerUp13 - texID == 16
-            0.703125f, 1f - 0.015625f, 0.71875f, 1f, //PowerUp14 - texID == 17
+            0.703125f, 1f - 0.015625f, 0.71875f, 1f //PowerUp14 - texID == 17
     };
 
-    public static Texture load(){
+    static Texture load(){
         IntBuffer w = MemoryUtil.memAllocInt(1);
         IntBuffer h = MemoryUtil.memAllocInt(1);
         IntBuffer comp = MemoryUtil.memAllocInt(1);

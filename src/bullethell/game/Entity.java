@@ -6,9 +6,10 @@ import bullethell.math.Vec2f;
 public abstract class Entity{
     float x, y;
     private final float scale;
-    private final float hitRadius;
+    final float hitRadius;
 
-    Vec2f velocity;
+    float velocity;
+    Vec2f direction;
 
     private final int startingFrame;
     private int currentAnimationFrame;
@@ -29,7 +30,7 @@ public abstract class Entity{
 
     public abstract void update();
 
-    protected void updateAnimation(){
+    void updateAnimation(){
         if(lastFrameTime == -1) lastFrameTime = System.currentTimeMillis();
         else{
             long now = System.currentTimeMillis();

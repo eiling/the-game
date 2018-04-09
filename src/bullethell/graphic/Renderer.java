@@ -76,12 +76,12 @@ public class Renderer{
     public void drawTexture(float x, float y, float k,  int texID){
         texID *= 4;
 
-        vertices.put(x - k).put(y - k).put(st[texID + 0]).put(st[texID + 1]);
+        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
         vertices.put(x + k).put(y - k).put(st[texID + 2]).put(st[texID + 1]);
         vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y - k).put(st[texID + 0]).put(st[texID + 1]);
+        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
         vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y + k).put(st[texID + 0]).put(st[texID + 3]);
+        vertices.put(x - k).put(y + k).put(st[texID]).put(st[texID + 3]);
 
         numVertices += 6;
     }
