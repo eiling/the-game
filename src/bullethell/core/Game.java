@@ -4,6 +4,7 @@ import bullethell.game.Enemy;
 import bullethell.game.PowerUp;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
+import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.game.powerups.PowerUpWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
@@ -22,6 +23,7 @@ public class Game{
     private CharacterWithNoName player;
     private EnemyWithNoName enemy;
     private PowerUpWithNoName powerUp;
+    private ExplosionWithNoName explosion;
 
     private void start(){
         init();
@@ -47,6 +49,7 @@ public class Game{
         player = new CharacterWithNoName(-0.5f, -0.5f);
         enemy = new EnemyWithNoName(0.5f, -0.5f);
         powerUp = new PowerUpWithNoName(-0.5f, 0.5f);
+        explosion = new ExplosionWithNoName(0.5f, 0.5f);
     }
 
     private void loop(){
@@ -60,10 +63,12 @@ public class Game{
             player.update();
             enemy.update();
             powerUp.update();
+            explosion.update();
 
             player.render(renderer);
             enemy.render(renderer);
             powerUp.render(renderer);
+            explosion.render(renderer);
 
             renderer.draw();
 

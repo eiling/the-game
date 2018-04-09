@@ -10,6 +10,7 @@ public class EnemyWithNoName extends Enemy{
     }
     @Override
     public void update(){
+        updateAnimation();
     }
 
     @Override

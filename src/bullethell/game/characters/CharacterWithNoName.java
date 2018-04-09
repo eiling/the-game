@@ -9,7 +9,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 public class CharacterWithNoName extends Character{
     public CharacterWithNoName(float x, float y){
         super(x,y,0.2f,0.05f, new Vec2f(0f,0f),
-                0,2,500, 0.2f);
+                16,2,500, 0.05f);
     }
 
     @Override
