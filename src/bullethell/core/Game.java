@@ -2,7 +2,9 @@ package bullethell.core;
 
 import bullethell.game.Enemy;
 import bullethell.game.PowerUp;
-import bullethell.game.Ship;
+import bullethell.game.characters.CharacterWithNoName;
+import bullethell.game.enemies.EnemyWithNoName;
+import bullethell.game.powerups.PowerUpWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -17,9 +19,9 @@ public class Game{
 
     private Renderer renderer;
 
-    private Ship ship;
-    private Enemy enemy;
-    private PowerUp powerUp;
+    private CharacterWithNoName player;
+    private EnemyWithNoName enemy;
+    private PowerUpWithNoName powerUp;
 
     private void start(){
         init();
@@ -42,9 +44,9 @@ public class Game{
         renderer = new Renderer();
         renderer.init();
 
-        ship = new Ship(-0.5f, -0.5f);
-        enemy = new Enemy(0.5f, -0.5f);
-        powerUp = new PowerUp(-0.5f, 0.5f);
+        player = new CharacterWithNoName(-0.5f, -0.5f);
+        enemy = new EnemyWithNoName(0.5f, -0.5f);
+        powerUp = new PowerUpWithNoName(-0.5f, 0.5f);
     }
 
     private void loop(){
@@ -53,13 +55,13 @@ public class Game{
 
             if(window.isClosing()) break;
 
-            ship.input(window.id);
+            player.input(window.id);
 
-            ship.update();
+            player.update();
             enemy.update();
             powerUp.update();
 
-            ship.render(renderer);
+            player.render(renderer);
             enemy.render(renderer);
             powerUp.render(renderer);
 

@@ -2,19 +2,9 @@ package bullethell.game;
 
 import bullethell.math.Vec2f;
 
-public class PowerUp extends Entity{
-    public PowerUp(float x, float y){
-        super(0.2f,0.2f,4,14,80);
-
-        this.x = x;
-        this.y = y;
-
-        velocity = 0;
-        direction = new Vec2f(0f,0f);
-    }
-
-    @Override
-    public void update(){
-        updateAnimation();
+public abstract class PowerUp extends Solid{
+    public PowerUp(float x, float y, float scale, float velocity, Vec2f direction,
+                   int startingFrame, int numberOfFrames, long frameInterval, float hitRadius){
+        super(x,y,scale,velocity,direction,startingFrame,numberOfFrames,frameInterval,hitRadius);
     }
 }
