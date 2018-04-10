@@ -11,6 +11,8 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
+import static bullethell.math.Trig.*;
+
 public class Renderer{
     private static final int BUFFER_SIZE = Float.BYTES * 1024;
     private int vertexArrayID;

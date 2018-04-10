@@ -38,5 +38,8 @@ abstract class Animated extends GameObject{
     @Override
     public void render(Renderer renderer){
         renderer.drawTexture(x, y, scale, currentAnimationFrame);
+        drawHitRadius(renderer);
     }
+
+    public abstract void drawHitRadius(Renderer renderer);
 }

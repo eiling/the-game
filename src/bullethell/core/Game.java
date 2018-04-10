@@ -4,7 +4,6 @@ import bullethell.game.Character;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
-import bullethell.game.powerups.PowerUpWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.Bullets;
@@ -93,6 +92,7 @@ public class Game{
             window.update();
 
             long now = System.currentTimeMillis();
+            System.out.println("Time per frame: " + (now - start) + "ms");
             wait(now, (long) (1000f / 30f) - (now - start));
         }
     }

@@ -1,5 +1,6 @@
 package bullethell.game;
 
+import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
 public abstract class Solid extends Animated{
@@ -21,5 +22,10 @@ public abstract class Solid extends Animated{
         final float d = (float) Math.sqrt(dx2 + dy2);
 
         return d < minDist;
+    }
+
+    @Override
+    public void drawHitRadius(Renderer renderer){
+        renderer.drawTexture(x, y, hitRadius, 34);
     }
 }
