@@ -1,13 +1,18 @@
 package bullethell.core;
 
-import bullethell.game.Explosion;
+import bullethell.game.Character;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.game.powerups.PowerUpWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
+import bullethell.util.Bullets;
+import bullethell.util.Explosions;
+import bullethell.util.Solids;
 import org.lwjgl.glfw.GLFWErrorCallback;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
@@ -19,11 +24,16 @@ public class Game{
 
     private Renderer renderer;
 
-    private CharacterWithNoName player;
-    private EnemyWithNoName enemy;
-    private PowerUpWithNoName powerUp;
-    private ExplosionWithNoName explosion;
-    private Explosion e;
+    private Character player;
+    private Solids enemies;
+    private Bullets bullets;
+    //private Solids powerUps;
+    //private Solids destroyables;
+    private Explosions explosions;
+
+    public static void main(String[] args){
+        new Game().start();
+    }
 
     private void start(){
         init();
@@ -36,7 +46,7 @@ public class Game{
         glfwSetErrorCallback(errorCallback);
 
         /* Initialize GLFW */
-        if (!glfwInit()) {
+        if(!glfwInit()){
             throw new IllegalStateException("Unable to initialize GLFW!");
         }
 
@@ -47,9 +57,11 @@ public class Game{
         renderer.init();
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
-        enemy = new EnemyWithNoName(0.5f, -0.5f);
-        powerUp = new PowerUpWithNoName(-0.5f, 0.5f);
-        explosion = new ExplosionWithNoName(0.5f, 0.5f);
+        enemies = new Solids();
+        bullets = new Bullets();
+        explosions = new Explosions();
+
+        enemies.add(new EnemyWithNoName(0.5f, 0.5f));
     }
 
     private void loop(){
@@ -61,33 +73,27 @@ public class Game{
             player.input(window.id);
 
             player.update();
-            if(enemy != null) enemy.update();
-            powerUp.update();
-            if(explosion != null) explosion.update();
+            enemies.update();
+            bullets.update();
+            explosions.update();
 
-            if(e != null) e.update();
-
-            if(enemy != null && enemy.collided(player)){
-                e = enemy.explode();
-                enemy = null;
-            }
-
-            if(e != null && !e.isActive()) e = null;
-            if(explosion != null && !explosion.isActive()) explosion = null;
+            if(enemies.collided(player))
+                explosions.add(new ExplosionWithNoName(
+                        (float)ThreadLocalRandom.current().nextDouble(-1,+1),
+                        (float)ThreadLocalRandom.current().nextDouble(-1,+1)
+                ));
 
             player.render(renderer);
-            if(enemy != null) enemy.render(renderer);
-            powerUp.render(renderer);
-            if(explosion != null) explosion.render(renderer);
-
-            if(e != null) e.render(renderer);
+            enemies.render(renderer);
+            bullets.render(renderer);
+            explosions.render(renderer);
 
             renderer.draw();
 
             window.update();
 
             long now = System.currentTimeMillis();
-            wait(now, (long)(1000f/30f) - (now - start));
+            wait(now, (long) (1000f / 30f) - (now - start));
         }
     }
 
@@ -98,10 +104,9 @@ public class Game{
 
     private void wait(long start, long interval){
         while(System.currentTimeMillis() - start < interval)
-            try{ Thread.sleep(1);} catch(InterruptedException ignored){}
-    }
-
-    public static void main(String[] args){
-        new Game().start();
+            try{
+                Thread.sleep(1);
+            } catch(InterruptedException ignored){
+            }
     }
 }

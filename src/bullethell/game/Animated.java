@@ -5,14 +5,14 @@ import bullethell.math.Vec2f;
 
 abstract class Animated extends GameObject{
     final int startingFrame;
-    int currentAnimationFrame;
     final int numberOfFrames;
-    long lastFrameTime;
     final long frameInterval;
+    int currentAnimationFrame;
+    long lastFrameTime;
 
     Animated(float x, float y, float scale, float velocity, Vec2f direction,
              int startingFrame, int numberOfFrames, long frameInterval){
-        super(x,y,scale,velocity,direction);
+        super(x, y, scale, velocity, direction);
 
         this.startingFrame = startingFrame;
         this.numberOfFrames = numberOfFrames;

@@ -5,7 +5,7 @@ import java.io.*;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.opengl.GL20.*;
 
-public class Shader {
+public class Shader{
     public static int load(String vertexShader, String fragmentShader){
         int VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
         int FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -29,7 +29,7 @@ public class Shader {
         glAttachShader(ProgramID, FragmentShaderID);
         glLinkProgram(ProgramID);
 
-        if(glGetProgrami(ProgramID, GL_LINK_STATUS)!=GL_TRUE){
+        if(glGetProgrami(ProgramID, GL_LINK_STATUS) != GL_TRUE){
             throw new RuntimeException(glGetProgramInfoLog(ProgramID));
         }
 
@@ -42,16 +42,16 @@ public class Shader {
         return ProgramID;
     }
 
-    public static CharSequence readFile(String path) {
+    public static CharSequence readFile(String path){
         StringBuilder builder = new StringBuilder();
 
-        try (InputStream in = new FileInputStream(path);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+        try(InputStream in = new FileInputStream(path);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
             String line;
-            while ((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null){
                 builder.append(line).append("\n");
             }
-        } catch (IOException ex) {
+        } catch(IOException ex){
             throw new RuntimeException("Failed to load a shader file!"
                     + System.lineSeparator() + ex.getMessage());
         }

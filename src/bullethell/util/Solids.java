@@ -1,0 +1,95 @@
+package bullethell.util;
+
+import bullethell.game.Solid;
+import bullethell.game.Character;
+import bullethell.graphic.Renderer;
+
+public class Solids{
+    private Node first;
+    private Node last;
+
+    public void add(Solid solid){
+        if(isEmpty()){
+            first = new Node(solid);
+            last = first;
+        }
+        else{
+            last.next = new Node(solid);
+            last = last.next;
+        }
+    }
+
+    private void remove(Solid solid){
+        if(isEmpty()) return;
+
+        if(first.solid == solid){
+            first = first.next;
+            return;
+        }
+
+        Node temp = first;
+        while(temp.next != null){
+            if(temp.next.solid == solid){
+                temp.next = temp.next.next;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    public void update(){
+        if(isEmpty()) return;
+
+        Node temp = first;
+        while(temp != null){
+            temp.solid.update();
+            temp = temp.next;
+        }
+    }
+
+    public boolean collided(Character character){
+        if(isEmpty()) return false;
+
+        Node temp = first;
+        while(temp != null) {
+            if(character.collided(temp.solid)) return true;
+            temp = temp.next;
+        }
+        return false;
+    }
+
+    public void handleCollisions(Bullets bullets){
+        if(isEmpty()) return;
+
+        Node temp = first;
+        while(temp != null){
+            Solid solid = temp.solid;
+            temp = temp.next;
+            if(bullets.collided(solid)) remove(solid);
+        }
+    }
+
+    public void render(Renderer renderer){
+        if(isEmpty()) return;
+
+        Node temp = first;
+        while(temp != null){
+            temp.solid.render(renderer);
+            temp = temp.next;
+        }
+    }
+
+    private boolean isEmpty(){
+        return first == null;
+    }
+
+    private class Node{
+        private Solid solid;
+        private Node next;
+
+        private Node(Solid solid){
+            this.solid = solid;
+            next = null;
+        }
+    }
+}

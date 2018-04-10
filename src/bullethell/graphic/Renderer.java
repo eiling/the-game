@@ -4,30 +4,21 @@ import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 
+import static bullethell.graphic.Texture.load;
+import static bullethell.graphic.Texture.st;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL20.glUniform1i;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
-
-import static bullethell.graphic.Texture.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer{
+    private static final int BUFFER_SIZE = Float.BYTES * 1024;
     private int vertexArrayID;
     private int vertexBufferID;
     private int programID;
-
     private FloatBuffer vertices;
     private int numVertices;
-
     private Texture texture;
-
-    private static final int BUFFER_SIZE = Float.BYTES * 1024;
 
     public void init(){
         vertexArrayID = glGenVertexArrays();
@@ -46,10 +37,10 @@ public class Renderer{
         glUniform1i(textureSamplerUniform, 0);
 
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 4*Float.BYTES, 0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 4 * Float.BYTES, 0);
 
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 4*Float.BYTES, 2*Float.BYTES);
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES);
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -62,8 +53,6 @@ public class Renderer{
 
         glUseProgram(programID);
 
-        texture.bind();
-
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
         glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
 
@@ -73,7 +62,7 @@ public class Renderer{
         numVertices = 0;
     }
 
-    public void drawTexture(float x, float y, float k,  int texID){
+    public void drawTexture(float x, float y, float k, int texID){
         texID *= 4;
 
         vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);

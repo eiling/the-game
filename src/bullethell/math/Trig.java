@@ -22,16 +22,16 @@ public interface Trig{
     static float sin(float x){
         // wrap x within [0, TWO_PI)
         final float a = x * TWO_PI_INV;
-        x -= (int)a * TWO_PI;
-        if (x < 0.0f)
+        x -= (int) a * TWO_PI;
+        if(x < 0.0f)
             x += TWO_PI;
 
         // 4 pieces of hills
-        if (x < HALF_PI)
+        if(x < HALF_PI)
             return Hill(HALF_PI - x);
-        else if (x < PI)
+        else if(x < PI)
             return Hill(x - HALF_PI);
-        else if (x < 3.0f * HALF_PI)
+        else if(x < 3.0f * HALF_PI)
             return -Hill(3.0f * HALF_PI - x);
         else
             return -Hill(x - 3.0f * HALF_PI);

@@ -7,13 +7,9 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.stb.STBImage.stbi_failure_reason;
-import static org.lwjgl.stb.STBImage.stbi_load;
-import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
+import static org.lwjgl.stb.STBImage.*;
 
 public class Texture{
-    private int id;
-
     static final float[] st = new float[]{
             0.515625f, 0.984375f, 0.53125f, 1.0f, //Enemy1 -- texID == 0
             0.53222656f, 0.984375f, 0.54785156f, 1.0f, //Enemy2 -- texID == 1
@@ -50,6 +46,7 @@ public class Texture{
             0.45117188f, 0.96875f, 0.48242188f, 1.0f, //explosion15 -- texID == 32
             0.48339844f, 0.96875f, 0.51464844f, 1.0f, //explosion16 -- texID == 33
     };
+    private int id;
 
     static Texture load(){
         IntBuffer w = MemoryUtil.memAllocInt(1);
@@ -59,7 +56,7 @@ public class Texture{
         stbi_set_flip_vertically_on_load(true);
 
         ByteBuffer data = stbi_load("./textures/atlas1.png", w, h, comp, 0);
-        if (data == null) {
+        if(data == null){
             throw new RuntimeException("Failed to load a texture file!"
                     + System.lineSeparator() + stbi_failure_reason());
         }

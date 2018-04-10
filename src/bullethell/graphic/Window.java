@@ -5,12 +5,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
 import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window{
@@ -43,22 +38,22 @@ public class Window{
 
         glClearColor(0f, 0f, 0.4f, 1f);
 
-        glfwSetKeyCallback(id, new GLFWKeyCallback() {
+        glfwSetKeyCallback(id, new GLFWKeyCallback(){
             @Override
-            public void invoke(long window, int key, int scancode, int action, int mods) {
-                if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+            public void invoke(long window, int key, int scancode, int action, int mods){
+                if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
                     glfwSetWindowShouldClose(window, true);
                 }
             }
         });
     }
 
-    public void update() {
+    public void update(){
         glfwSwapBuffers(id);
         glfwPollEvents();
     }
 
-    public boolean isClosing() {
+    public boolean isClosing(){
         return glfwWindowShouldClose(id);
     }
 

@@ -3,12 +3,11 @@ package bullethell.game;
 import bullethell.math.Vec2f;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 public abstract class Character extends Solid{
     protected Character(float x, float y, float scale, float velocity, Vec2f direction,
-                     int startingFrame, int numberOfFrames, long frameInterval, float hitRadius){
-        super(x,y,scale,velocity,direction,startingFrame,numberOfFrames,frameInterval,hitRadius);
+                        int startingFrame, int numberOfFrames, long frameInterval, float hitRadius){
+        super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius);
     }
 
     @Override
@@ -34,6 +33,10 @@ public abstract class Character extends Solid{
         if(glfwGetKey(windowID, GLFW_KEY_DOWN) == GLFW_PRESS) direction.y -= 1f;
         if(glfwGetKey(windowID, GLFW_KEY_RIGHT) == GLFW_PRESS) direction.x += 1f;
         if(glfwGetKey(windowID, GLFW_KEY_LEFT) == GLFW_PRESS) direction.x -= 1f;
-        direction.normalize2();
+        direction.normalize();
+    }
+
+    public boolean collided(Solid solid){
+        return checkCollision(x - solid.x, y - solid.y, hitRadius + solid.hitRadius);
     }
 }
