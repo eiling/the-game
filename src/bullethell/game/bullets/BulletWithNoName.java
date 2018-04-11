@@ -5,6 +5,6 @@ import bullethell.math.Vec2f;
 
 public class BulletWithNoName extends Bullet{
     public BulletWithNoName(float x, float y, Vec2f direction){
-        super(x, y, 0.2f, 0.2f, 0.2f, direction);
+        super(x, y, 0.05f, 0.05f, 0.01f, direction, 34);
     }
 }

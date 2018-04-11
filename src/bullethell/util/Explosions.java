@@ -51,7 +51,7 @@ public class Explosions{
         if(isEmpty()) return;
 
         Node temp = first;
-        while(temp.next != null){
+        while(temp != null){
             temp.explosion.render(renderer);
             temp = temp.next;
         }

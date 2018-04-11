@@ -42,7 +42,9 @@ public class Solids{
 
         Node temp = first;
         while(temp != null){
-            temp.solid.update();
+            Solid solid = temp.solid;
+            solid.update();
+            if(solid.isOutOfScreen()) remove(solid);
             temp = temp.next;
         }
     }

@@ -9,9 +9,9 @@ public class Vec2f{
     }
 
     public void normalize(){
-        if(x == 1f && y == 1f){
-            x = 0.70710678118f;
-            y = 0.70710678118f;
+        if((x == 1f || x == -1f) && (y == 1f || y == -1f)){
+            x *= 0.70710678118f;
+            y *= 0.70710678118f;
         }
     }
 

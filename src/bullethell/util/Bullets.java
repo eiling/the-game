@@ -41,14 +41,18 @@ public class Bullets{
 
         Node temp = first;
         while(temp.next != null){
-            temp.bullet.update();
+            Bullet bullet = temp.bullet;
+            bullet.update();
+            if(bullet.isOutOfScreen()) remove(bullet);
             temp = temp.next;
         }
     }
 
     public boolean collided(Solid solid){
+        if(isEmpty()) return false;
+
         Node temp = first;
-        while(temp.next != null) {
+        while(temp != null) {
             if(solid.collided(temp.bullet)) return true;
             temp = temp.next;
         }
@@ -59,7 +63,7 @@ public class Bullets{
         if(isEmpty()) return;
 
         Node temp = first;
-        while(temp.next != null){
+        while(temp != null){
             temp.bullet.render(renderer);
             temp = temp.next;
         }

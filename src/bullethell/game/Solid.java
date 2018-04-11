@@ -24,6 +24,10 @@ public abstract class Solid extends Animated{
         return d < minDist;
     }
 
+    public boolean isOutOfScreen(){
+        return isOutside(x - hitRadius, x + hitRadius, y - hitRadius, y + hitRadius);
+    }
+
     @Override
     public void drawHitRadius(Renderer renderer){
         renderer.drawTexture(x, y, hitRadius, 34);

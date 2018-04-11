@@ -22,4 +22,8 @@ abstract class GameObject{
     protected abstract void move();
 
     public abstract void render(Renderer renderer);
+
+    static boolean isOutside(float top, float bottom, float right, float left){
+        return top > 1f || bottom < -1f || right > 1f || left < -1f;
+    }
 }

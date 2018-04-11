@@ -24,6 +24,7 @@ public class Game{
     private Renderer renderer;
 
     private Character player;
+    private Bullets playerBullets;
     private Solids enemies;
     private Bullets bullets;
     //private Solids powerUps;
@@ -50,16 +51,18 @@ public class Game{
         }
 
         /* Create GLFW window */
-        window = new Window(500, 500, "Bullet Hell");
+        window = new Window(600, 600, "Bullet Hell");
 
         renderer = new Renderer();
         renderer.init();
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
+        playerBullets = new Bullets();
         enemies = new Solids();
         bullets = new Bullets();
         explosions = new Explosions();
 
+        //this will not exist
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
     }
 
@@ -71,7 +74,8 @@ public class Game{
 
             player.input(window.id);
 
-            player.update();
+            player.update(playerBullets);
+            playerBullets.update();
             enemies.update();
             bullets.update();
             explosions.update();
@@ -81,8 +85,15 @@ public class Game{
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1),
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1)
                 ));
+            if(bullets.collided(player))
+                explosions.add(new ExplosionWithNoName(
+                        (float)ThreadLocalRandom.current().nextDouble(-1,+1),
+                        (float)ThreadLocalRandom.current().nextDouble(-1,+1)
+                ));
+            enemies.handleCollisions(playerBullets);
 
             player.render(renderer);
+            playerBullets.render(renderer);
             enemies.render(renderer);
             bullets.render(renderer);
             explosions.render(renderer);
