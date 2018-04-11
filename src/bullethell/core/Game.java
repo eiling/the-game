@@ -76,7 +76,7 @@ public class Game{
 
             player.update(playerBullets);
             playerBullets.update();
-            enemies.update();
+            enemies.update(bullets);
             bullets.update();
             explosions.update();
 

@@ -37,13 +37,13 @@ public class Solids{
         }
     }
 
-    public void update(){
+    public void update(Bullets bullets){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
             Solid solid = temp.solid;
-            solid.update();
+            solid.update(bullets);
             if(solid.isOutOfScreen()) remove(solid);
             temp = temp.next;
         }

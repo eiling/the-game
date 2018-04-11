@@ -1,11 +1,13 @@
 package bullethell.game;
 
 import bullethell.math.Vec2f;
+import bullethell.util.Bullets;
 
 public abstract class Destroyable extends Solid{
     public Destroyable(float x, float y, float scale, float velocity, Vec2f direction,
                        int startingFrame, int numberOfFrames, long frameInterval, float hitRadius){
-        super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius);
+        super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius,
+                -1);
     }
 
     @Override
@@ -16,4 +18,7 @@ public abstract class Destroyable extends Solid{
     @Override
     protected void move(){
     }
+
+    @Override
+    protected void shoot(Bullets bullets){}
 }
