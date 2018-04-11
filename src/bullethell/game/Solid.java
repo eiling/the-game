@@ -1,5 +1,6 @@
 package bullethell.game;
 
+import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
@@ -28,8 +29,10 @@ public abstract class Solid extends Animated{
         return isOutside(x - hitRadius, x + hitRadius, y - hitRadius, y + hitRadius);
     }
 
+    public Explosion explode(){ return new ExplosionWithNoName(0,0);}
+
     @Override
     public void drawHitRadius(Renderer renderer){
-        renderer.drawTexture(x, y, hitRadius, 34);
+        renderer.drawTexture(x, y, hitRadius, 43);
     }
 }

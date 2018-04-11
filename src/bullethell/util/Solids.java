@@ -60,14 +60,17 @@ public class Solids{
         return false;
     }
 
-    public void handleCollisions(Bullets bullets){
+    public void handleCollisions(Bullets bullets, Explosions explosions){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
             Solid solid = temp.solid;
             temp = temp.next;
-            if(bullets.collided(solid)) remove(solid);
+            if(bullets.collided(solid)) {
+                explosions.add(solid.explode());
+                remove(solid);
+            }
         }
     }
 

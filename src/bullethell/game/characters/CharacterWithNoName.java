@@ -14,6 +14,6 @@ public class CharacterWithNoName extends Character{
 
     @Override
     protected void shoot(Bullets bullets){
-        bullets.add(new BulletWithNoName(x, y + 0.1f, new Vec2f(0f,1f)));
+        bullets.add(new BulletWithNoName(x, y + 0.16f, new Vec2f(0f,1f)));
     }
 }

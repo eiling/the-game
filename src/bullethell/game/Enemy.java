@@ -17,6 +17,7 @@ public abstract class Enemy extends Solid{
 
     protected abstract void move();
 
+    @Override
     public Explosion explode(){
         return new ExplosionWithNoName(x, y);
     }

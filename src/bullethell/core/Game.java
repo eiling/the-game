@@ -90,7 +90,7 @@ public class Game{
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1),
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1)
                 ));
-            enemies.handleCollisions(playerBullets);
+            enemies.handleCollisions(playerBullets, explosions);
 
             player.render(renderer);
             playerBullets.render(renderer);
