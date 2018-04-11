@@ -40,7 +40,7 @@ public class Bullets{
         if(isEmpty()) return;
 
         Node temp = first;
-        while(temp.next != null){
+        while(temp != null){
             Bullet bullet = temp.bullet;
             bullet.update();
             if(bullet.isOutOfScreen()) remove(bullet);

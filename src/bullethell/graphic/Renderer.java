@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL30.*;
 import static bullethell.math.Trig.*;
 
 public class Renderer{
-    private static final int BUFFER_SIZE = Float.BYTES * 1024;
+    private static final int BUFFER_SIZE = Float.BYTES * 2048;
     private int vertexArrayID;
     private int vertexBufferID;
     private int programID;
