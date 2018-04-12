@@ -1,7 +1,9 @@
 package bullethell.game.enemies;
 
 import bullethell.game.Enemy;
+import bullethell.game.Explosion;
 import bullethell.game.bullets.BulletWithNoName;
+import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
 import bullethell.util.Bullets;
 
@@ -20,5 +22,10 @@ public class EnemyWithNoName extends Enemy{
     protected void shoot(Bullets bullets){
         bullets.add(new BulletWithNoName(x + 0.2f, y, new Vec2f(0f, -1f)));
         bullets.add(new BulletWithNoName(x - 0.2f, y, new Vec2f(0f, -1f)));
+    }
+
+    @Override
+    public Explosion explode(){
+        return new ExplosionWithNoName(x, y);
     }
 }

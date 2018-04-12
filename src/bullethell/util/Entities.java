@@ -1,35 +1,35 @@
 package bullethell.util;
 
-import bullethell.game.Solid;
+import bullethell.game.Entity;
 import bullethell.game.Character;
 import bullethell.graphic.Renderer;
 
-public class Solids{
+public class Entities{
     private Node first;
     private Node last;
 
-    public void add(Solid solid){
+    public void add(Entity entity){
         if(isEmpty()){
-            first = new Node(solid);
+            first = new Node(entity);
             last = first;
         }
         else{
-            last.next = new Node(solid);
+            last.next = new Node(entity);
             last = last.next;
         }
     }
 
-    private void remove(Solid solid){
+    private void remove(Entity entity){
         if(isEmpty()) return;
 
-        if(first.solid == solid){
+        if(first.entity == entity){
             first = first.next;
             return;
         }
 
         Node temp = first;
         while(temp.next != null){
-            if(temp.next.solid == solid){
+            if(temp.next.entity == entity){
                 temp.next = temp.next.next;
                 break;
             }
@@ -37,14 +37,14 @@ public class Solids{
         }
     }
 
-    public void update(){
+    public void update(Bullets bullets){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            Solid solid = temp.solid;
-            solid.update();
-            if(solid.isOutOfScreen()) remove(solid);
+            Entity entity = temp.entity;
+            entity.update(bullets);
+            if(entity.isOutOfScreen()) remove(entity);
             temp = temp.next;
         }
     }
@@ -54,7 +54,7 @@ public class Solids{
 
         Node temp = first;
         while(temp != null) {
-            if(character.collided(temp.solid)) return true;
+            if(character.collided(temp.entity)) return true;
             temp = temp.next;
         }
         return false;
@@ -65,11 +65,11 @@ public class Solids{
 
         Node temp = first;
         while(temp != null){
-            Solid solid = temp.solid;
+            Entity entity = temp.entity;
             temp = temp.next;
-            if(bullets.collided(solid)) {
-                explosions.add(solid.explode());
-                remove(solid);
+            if(bullets.collided(entity)) {
+                explosions.add(entity.explode());
+                remove(entity);
             }
         }
     }
@@ -79,7 +79,7 @@ public class Solids{
 
         Node temp = first;
         while(temp != null){
-            temp.solid.render(renderer);
+            temp.entity.render(renderer);
             temp = temp.next;
         }
     }
@@ -89,11 +89,11 @@ public class Solids{
     }
 
     private class Node{
-        private Solid solid;
+        private Entity entity;
         private Node next;
 
-        private Node(Solid solid){
-            this.solid = solid;
+        private Node(Entity entity){
+            this.entity = entity;
             next = null;
         }
     }

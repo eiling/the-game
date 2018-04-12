@@ -7,6 +7,7 @@ import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.Bullets;
+import bullethell.util.Entities;
 import bullethell.util.Explosions;
 import bullethell.util.Solids;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -25,7 +26,7 @@ public class Game{
 
     private Character player;
     private Bullets playerBullets;
-    private Solids enemies;
+    private Entities enemies;
     private Bullets bullets;
     //private Solids powerUps;
     //private Solids destroyables;
@@ -58,7 +59,7 @@ public class Game{
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
         playerBullets = new Bullets();
-        enemies = new Solids();
+        enemies = new Entities();
         bullets = new Bullets();
         explosions = new Explosions();
 
@@ -80,12 +81,7 @@ public class Game{
             bullets.update();
             explosions.update();
 
-            if(enemies.collided(player))
-                explosions.add(new ExplosionWithNoName(
-                        (float)ThreadLocalRandom.current().nextDouble(-1,+1),
-                        (float)ThreadLocalRandom.current().nextDouble(-1,+1)
-                ));
-            if(bullets.collided(player))
+            if(enemies.collided(player) || bullets.collided(player))
                 explosions.add(new ExplosionWithNoName(
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1),
                         (float)ThreadLocalRandom.current().nextDouble(-1,+1)

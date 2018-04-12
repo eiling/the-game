@@ -1,6 +1,8 @@
 package bullethell.game.bosses;
 
 import bullethell.game.Boss;
+import bullethell.game.Explosion;
+import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
 import bullethell.util.Bullets;
 
@@ -17,5 +19,10 @@ public class BossWithNoName extends Boss{
 
     @Override
     protected void shoot(Bullets bullets){
+    }
+
+    @Override
+    public Explosion explode(){
+        return new ExplosionWithNoName(x, y);
     }
 }

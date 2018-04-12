@@ -1,6 +1,7 @@
 package bullethell.game.characters;
 
 import bullethell.game.Character;
+import bullethell.game.Explosion;
 import bullethell.game.bullets.BulletWithNoName;
 import bullethell.math.Vec2f;
 import bullethell.util.Bullets;
@@ -16,4 +17,7 @@ public class CharacterWithNoName extends Character{
     protected void shoot(Bullets bullets){
         bullets.add(new BulletWithNoName(x, y + 0.16f, new Vec2f(0f,1f)));
     }
+
+    @Override
+    public Explosion explode(){ return null;}
 }
