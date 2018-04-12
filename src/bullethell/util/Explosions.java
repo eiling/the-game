@@ -5,15 +5,14 @@ import bullethell.graphic.Renderer;
 
 public class Explosions{
     private Node first;
-    private Node last;
 
     public void add(Explosion explosion){
         if(isEmpty()){
             first = new Node(explosion);
-            last = first;
         } else{
-            last.next = new Node(explosion);
-            last = last.next;
+            Node temp = new Node(explosion);
+            temp.next = first;
+            first = temp;
         }
     }
 

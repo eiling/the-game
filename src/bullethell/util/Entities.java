@@ -6,16 +6,15 @@ import bullethell.graphic.Renderer;
 
 public class Entities{
     private Node first;
-    private Node last;
 
     public void add(Entity entity){
         if(isEmpty()){
             first = new Node(entity);
-            last = first;
         }
         else{
-            last.next = new Node(entity);
-            last = last.next;
+            Node temp = new Node(entity);
+            temp.next = first;
+            first = temp;
         }
     }
 

@@ -6,16 +6,15 @@ import bullethell.graphic.Renderer;
 
 public class Solids{
     private Node first;
-    private Node last;
 
     public void add(Solid solid){
         if(isEmpty()){
             first = new Node(solid);
-            last = first;
         }
         else{
-            last.next = new Node(solid);
-            last = last.next;
+            Node temp = new Node(solid);
+            temp.next = first;
+            first = temp;
         }
     }
 

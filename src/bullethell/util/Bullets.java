@@ -6,15 +6,14 @@ import bullethell.graphic.Renderer;
 
 public class Bullets{
     private Node first;
-    private Node last;
 
     public void add(Bullet bullet){
         if(isEmpty()){
             first = new Node(bullet);
-            last = first;
         } else{
-            last.next = new Node(bullet);
-            last = last.next;
+            Node temp = new Node(bullet);
+            temp.next = first;
+            first = temp;
         }
     }
 
@@ -30,7 +29,7 @@ public class Bullets{
         while(temp.next != null){
             if(temp.next.bullet == bullet){
                 temp.next = temp.next.next;
-                break;
+                return;
             }
             temp = temp.next;
         }
@@ -77,9 +76,12 @@ public class Bullets{
         private Bullet bullet;
         private Node next;
 
+        private boolean marked;
+
         private Node(Bullet bullet){
             this.bullet = bullet;
             next = null;
+            marked = false;
         }
     }
 }
