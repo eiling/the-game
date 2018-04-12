@@ -6,10 +6,7 @@ import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
-import bullethell.util.Bullets;
-import bullethell.util.Entities;
-import bullethell.util.Explosions;
-import bullethell.util.Solids;
+import bullethell.util.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.glfwInit;
@@ -29,6 +26,10 @@ public class Game{
     //private Solids powerUps;
     //private Solids destroyables;
     private Explosions explosions;
+
+    private Timer timer;
+
+    private static final float TARGET_UPS = 60f;
 
     public static void main(String[] args){
         new Game().start();
@@ -65,28 +66,44 @@ public class Game{
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(-0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(0f, 0.5f));
+
+        timer = new Timer();
+        timer.init();
     }
 
     private void loop(){
-        while(true){
-            long start = System.currentTimeMillis();
+        float delta;
+        float accumulator = 0f;
+        float interval = 1f / TARGET_UPS;
+        float alpha;
 
+        while(true){
             if(window.isClosing()) break;
+
+            delta = timer.getDelta();
+            accumulator += delta;
 
             player.input(window.id);
 
-            player.update(playerBullets);
-            playerBullets.update();
-            enemies.update(bullets);
-            bullets.update();
-            explosions.update();
+            while(accumulator >= interval){
+                player.update(playerBullets);
+                playerBullets.update();
+                enemies.update(bullets);
+                bullets.update();
+                explosions.update();
 
-            if(enemies.collided(player) || bullets.collided(player))
-                explosions.add(new Explosion(0f,0f,1f,27,16,100){
-                    @Override
-                    public void drawHitRadius(Renderer renderer){}
-                });
-            enemies.handleCollisions(playerBullets, explosions);
+                if(enemies.collided(player) || bullets.collided(player))
+                    explosions.add(new Explosion(0f,0f,1f,27,16,100){
+                        @Override
+                        public void drawHitRadius(Renderer renderer){}
+                    });
+                enemies.handleCollisions(playerBullets, explosions);
+
+                timer.updateUPS();
+                accumulator -= interval;
+            }
+
+            alpha = accumulator / interval; //for interpolation
 
             player.render(renderer);
             playerBullets.render(renderer);
@@ -96,11 +113,15 @@ public class Game{
 
             renderer.draw();
 
+            timer.updateFPS();
+
+            timer.update();
+
             window.update();
 
-            long now = System.currentTimeMillis();
-            System.out.println("Time per frame: " + (now - start) + "ms");
-            wait(now, (long) (1000f / 30f) - (now - start));
+            System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+
+            //maybe put a fps limiter here... just maybe...
         }
     }
 

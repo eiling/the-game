@@ -10,12 +10,12 @@ import bullethell.util.Bullets;
 import static bullethell.math.Trig.*;
 
 public class EnemyWithNoName extends Enemy{
-    static final float N = TWO_PI/24;
+    private static final float N = TWO_PI/24;
 
     public EnemyWithNoName(float x, float y){
         super(x, y, 0.2f, 0.05f, new Vec2f(0f, 0f),
                 0, 2, 500, 0.2f,
-                1000);
+                2000);
     }
 
     @Override
