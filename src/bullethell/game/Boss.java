@@ -7,6 +7,6 @@ public abstract class Boss extends Entity{
                    int startingFrame, int numberOfFrames, long frameInterval, float hitRadius,
                    long shootInterval){
         super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius,
-                shootInterval);
+                shootInterval, System.currentTimeMillis());
     }
 }

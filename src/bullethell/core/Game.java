@@ -1,9 +1,9 @@
 package bullethell.core;
 
 import bullethell.game.Character;
+import bullethell.game.Explosion;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
-import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.Bullets;
@@ -11,8 +11,6 @@ import bullethell.util.Entities;
 import bullethell.util.Explosions;
 import bullethell.util.Solids;
 import org.lwjgl.glfw.GLFWErrorCallback;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
@@ -65,6 +63,8 @@ public class Game{
 
         //this will not exist
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
+        enemies.add(new EnemyWithNoName(-0.5f, 0.5f));
+        enemies.add(new EnemyWithNoName(0f, 0.5f));
     }
 
     private void loop(){
@@ -82,10 +82,10 @@ public class Game{
             explosions.update();
 
             if(enemies.collided(player) || bullets.collided(player))
-                explosions.add(new ExplosionWithNoName(
-                        (float)ThreadLocalRandom.current().nextDouble(-1,+1),
-                        (float)ThreadLocalRandom.current().nextDouble(-1,+1)
-                ));
+                explosions.add(new Explosion(0f,0f,1f,27,16,100){
+                    @Override
+                    public void drawHitRadius(Renderer renderer){}
+                });
             enemies.handleCollisions(playerBullets, explosions);
 
             player.render(renderer);
@@ -113,7 +113,6 @@ public class Game{
         while(System.currentTimeMillis() - start < interval)
             try{
                 Thread.sleep(1);
-            } catch(InterruptedException ignored){
-            }
+            } catch(InterruptedException ignored){}
     }
 }

@@ -46,6 +46,8 @@ public class Window{
                 }
             }
         });
+
+        glfwSwapInterval(1);
     }
 
     public void update(){

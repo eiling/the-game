@@ -13,6 +13,12 @@ public abstract class Solid extends Animated{
         this.hitRadius = hitRadius;
     }
 
+    @Override
+    public void update(){
+        move();
+        updateAnimation();
+    }
+
     public boolean collided(Bullet bullet){
         return checkCollision(x - bullet.x, y - bullet.y, hitRadius + bullet.hitRadius);
     }
@@ -20,9 +26,8 @@ public abstract class Solid extends Animated{
     static boolean checkCollision(float dx, float dy, float minDist){
         final float dx2 = dx * dx;
         final float dy2 = dy * dy;
-        final float d = (float) Math.sqrt(dx2 + dy2);
 
-        return d < minDist;
+        return dx2 + dy2 < minDist * minDist;
     }
 
     public boolean isOutOfScreen(){

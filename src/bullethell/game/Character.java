@@ -6,14 +6,34 @@ import bullethell.util.Bullets;
 import static org.lwjgl.glfw.GLFW.*;
 
 public abstract class Character extends Entity{
+    private boolean shooting;
+
     protected Character(float x, float y, float scale, float velocity, Vec2f direction,
                         int startingFrame, int numberOfFrames, long frameInterval, float hitRadius,
                         long shootInterval){
         super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius,
-                shootInterval);
+                shootInterval, -1);
+
+        shooting = false;
     }
 
-    protected abstract void shoot(Bullets bullets);
+    @Override
+    public void update(Bullets bullets){
+        update();
+
+        if(shooting){
+            long now = System.currentTimeMillis();
+            if(last == -1){
+                shoot(bullets);
+                last = now;
+            } else if(now - last >= shootInterval){
+                shoot(bullets);
+                last = now;
+            }
+
+            shooting = false;
+        }
+    }
 
     @Override
     protected void move(){
@@ -33,6 +53,8 @@ public abstract class Character extends Entity{
         if(glfwGetKey(windowID, GLFW_KEY_DOWN) == GLFW_PRESS) direction.y -= 1f;
         if(glfwGetKey(windowID, GLFW_KEY_RIGHT) == GLFW_PRESS) direction.x += 1f;
         if(glfwGetKey(windowID, GLFW_KEY_LEFT) == GLFW_PRESS) direction.x -= 1f;
+
+        if(glfwGetKey(windowID, GLFW_KEY_Z) == GLFW_PRESS) shooting = true;
     }
 
     public boolean collided(Solid solid){
