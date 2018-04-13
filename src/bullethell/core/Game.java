@@ -32,7 +32,7 @@ public class Game{
 
     private Timer timer;
 
-    private static final float TARGET_UPS = 120f;
+    private static final float TARGET_UPS = 60f;
 
     public static void main(String[] args){
         new Game().start();
@@ -84,10 +84,12 @@ public class Game{
             delta = timer.getDelta();
             accumulator += delta;
 
-            player.input(window.id);
+//            player.input(window.id);
 
             while(accumulator >= interval){
-                update(delta);
+                player.input(window.id);
+
+                update(interval);
 
                 timer.updateUPS();
                 accumulator -= interval;
