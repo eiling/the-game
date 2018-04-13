@@ -7,6 +7,9 @@ import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
+import bullethell.util.lists.Bullets;
+import bullethell.util.lists.Entities;
+import bullethell.util.lists.Explosions;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.glfwInit;
@@ -77,8 +80,7 @@ public class Game{
         float interval = 1f / TARGET_UPS;
         float alpha;
 
-        while(true){
-            if(window.isClosing()) break;
+        while(!window.isClosing()){
 
             delta = timer.getDelta();
             accumulator += delta;
@@ -86,18 +88,7 @@ public class Game{
             player.input(window.id);
 
             while(accumulator >= interval){
-                player.update(playerBullets);
-                playerBullets.update();
-                enemies.update(bullets);
-                bullets.update();
-                explosions.update();
-
-                if(enemies.collided(player) || bullets.collided(player))
-                    explosions.add(new Explosion(0f,0f,1f,27,16,100){
-                        @Override
-                        public void drawHitRadius(Renderer renderer){}
-                    });
-                enemies.handleCollisions(playerBullets, explosions);
+                update(delta);
 
                 timer.updateUPS();
                 accumulator -= interval;
@@ -128,6 +119,22 @@ public class Game{
     private void dispose(){
         renderer.dispose();
         window.dispose();
+    }
+
+    private void update(float delta){
+        player.update(playerBullets);
+        playerBullets.update();
+        enemies.update(bullets);
+        bullets.update();
+        explosions.update();
+
+        if(enemies.collided(player) || bullets.collided(player))
+            explosions.add(new Explosion(0f, 0f, 1f, 27, 16, 100){
+                @Override
+                public void drawHitRadius(Renderer renderer){
+                }
+            });
+        enemies.handleCollisions(playerBullets, explosions);
     }
 
     private void wait(long start, long interval){

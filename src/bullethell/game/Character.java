@@ -1,7 +1,7 @@
 package bullethell.game;
 
 import bullethell.math.Vec2f;
-import bullethell.util.Bullets;
+import bullethell.util.lists.Bullets;
 
 import static org.lwjgl.glfw.GLFW.*;
 

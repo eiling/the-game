@@ -1,7 +1,6 @@
 package bullethell.game;
 
 import bullethell.math.Vec2f;
-import bullethell.util.Bullets;
 
 public abstract class Destroyable extends Solid{
     public Destroyable(float x, float y, float scale, float velocity, Vec2f direction,

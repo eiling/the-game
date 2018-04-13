@@ -4,7 +4,7 @@ import bullethell.game.Boss;
 import bullethell.game.Explosion;
 import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
-import bullethell.util.Bullets;
+import bullethell.util.lists.Bullets;
 
 public class BossWithNoName extends Boss{
     public BossWithNoName(float x, float y){

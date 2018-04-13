@@ -5,7 +5,7 @@ import bullethell.game.Explosion;
 import bullethell.game.bullets.BulletWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
-import bullethell.util.Bullets;
+import bullethell.util.lists.Bullets;
 
 import static bullethell.math.Trig.*;
 

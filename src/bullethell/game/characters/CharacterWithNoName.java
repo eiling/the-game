@@ -4,7 +4,7 @@ import bullethell.game.Character;
 import bullethell.game.Explosion;
 import bullethell.game.bullets.BulletWithNoName;
 import bullethell.math.Vec2f;
-import bullethell.util.Bullets;
+import bullethell.util.lists.Bullets;
 
 public class CharacterWithNoName extends Character{
     public CharacterWithNoName(float x, float y){
