@@ -100,10 +100,8 @@ public class Game{
             delta = timer.getDelta();
             accumulator += delta;
 
-//            player.input(window.id);
-
             while(accumulator >= interval){
-                player.input(window.id); //should not be here?
+                player.input(window.id);
 
                 update(interval);
 
