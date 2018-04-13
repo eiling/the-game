@@ -67,7 +67,7 @@ public class Entities{
         while(temp != null){
             Entity entity = temp.entity;
             temp = temp.next;
-            if(bullets.collided(entity)) {
+            if(bullets.collided(entity, true)) {
                 explosions.add(entity.explode());
                 remove(entity);
             }

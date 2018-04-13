@@ -30,8 +30,6 @@ public abstract class Character extends Entity{
                 shoot(bullets);
                 last = now;
             }
-
-            shooting = false;
         }
     }
 
@@ -40,7 +38,6 @@ public abstract class Character extends Entity{
         direction.normalize();
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
-        direction.reset();
 
         if(x - hitRadius < -1f) x = -1f + hitRadius;
         else if(x + hitRadius > 1f) x = 1f - hitRadius;
@@ -49,12 +46,15 @@ public abstract class Character extends Entity{
     }
 
     public void input(long windowID){
+        direction.reset();
         if(glfwGetKey(windowID, GLFW_KEY_UP) == GLFW_PRESS) direction.y += 1f;
         if(glfwGetKey(windowID, GLFW_KEY_DOWN) == GLFW_PRESS) direction.y -= 1f;
         if(glfwGetKey(windowID, GLFW_KEY_RIGHT) == GLFW_PRESS) direction.x += 1f;
         if(glfwGetKey(windowID, GLFW_KEY_LEFT) == GLFW_PRESS) direction.x -= 1f;
+    }
 
-        if(glfwGetKey(windowID, GLFW_KEY_Z) == GLFW_PRESS) shooting = true;
+    public void setShooting(boolean shooting){
+        this.shooting = shooting;
     }
 
     public boolean collided(Solid solid){

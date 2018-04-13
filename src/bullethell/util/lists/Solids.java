@@ -67,7 +67,7 @@ public class Solids{
         while(temp != null){
             Solid solid = temp.solid;
             temp = temp.next;
-            if(bullets.collided(solid)) {
+            if(bullets.collided(solid, true)) {
                 explosions.add(solid.explode());
                 remove(solid);
             }
