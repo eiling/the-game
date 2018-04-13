@@ -14,8 +14,11 @@ public abstract class Solid extends Animated{
     }
 
     @Override
-    public void update(){
-        move();
+    public void update(float delta){
+        prevx = x;
+        prevy = y;
+
+        move(delta);
         updateAnimation();
     }
 

@@ -15,8 +15,8 @@ public abstract class Entity extends Solid{
         this.shootInterval = shootInterval;
     }
 
-    public void update(Bullets bullets){
-        update();
+    public void update(Bullets bullets, float delta){
+        update(delta);
 
         long now = System.currentTimeMillis();
         if(last == -1){

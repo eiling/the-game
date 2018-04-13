@@ -37,13 +37,13 @@ public class Solids{
         }
     }
 
-    public void update(){
+    public void update(float delta){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
             Solid solid = temp.solid;
-            solid.update();
+            solid.update(delta);
             if(solid.isOutOfScreen()) remove(solid);
             temp = temp.next;
         }
@@ -74,12 +74,12 @@ public class Solids{
         }
     }
 
-    public void render(Renderer renderer){
+    public void render(Renderer renderer, float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.solid.render(renderer);
+            temp.solid.render(renderer, alpha);
             temp = temp.next;
         }
     }

@@ -9,11 +9,11 @@ public abstract class Destroyable extends Solid{
     }
 
     @Override
-    public void update(){
-        updateAnimation();
-    }
+    public void update(float delta){
+        prevx = x;
+        prevy = y;
 
-    @Override
-    protected void move(){
+        move(delta);
+        updateAnimation();
     }
 }

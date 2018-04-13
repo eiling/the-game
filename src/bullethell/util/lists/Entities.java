@@ -37,13 +37,13 @@ public class Entities{
         }
     }
 
-    public void update(Bullets bullets){
+    public void update(Bullets bullets, float delta){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
             Entity entity = temp.entity;
-            entity.update(bullets);
+            entity.update(bullets, delta);
             if(entity.isOutOfScreen()) remove(entity);
             temp = temp.next;
         }
@@ -74,12 +74,12 @@ public class Entities{
         }
     }
 
-    public void render(Renderer renderer){
+    public void render(Renderer renderer, float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.entity.render(renderer);
+            temp.entity.render(renderer, alpha);
             temp = temp.next;
         }
     }

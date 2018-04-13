@@ -9,13 +9,17 @@ public abstract class PowerUp extends Solid{
     }
 
     @Override
-    public void update(){
+    public void update(float delta){
+        prevx = x;
+        prevy = y;
+
+        move(delta);
         updateAnimation();
     }
 
     @Override
-    protected void move(){}
+    protected void move(float delta){} //does all powerups move the same way?
 
     @Override
-    public Explosion explode(){ return null;}
+    public Explosion explode(){ return null; } //this doesn't explode!
 }

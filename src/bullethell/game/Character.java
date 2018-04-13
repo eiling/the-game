@@ -18,8 +18,8 @@ public abstract class Character extends Entity{
     }
 
     @Override
-    public void update(Bullets bullets){
-        update();
+    public void update(Bullets bullets, float delta){
+        update(delta);
 
         if(shooting){
             long now = System.currentTimeMillis();
@@ -36,10 +36,10 @@ public abstract class Character extends Entity{
     }
 
     @Override
-    protected void move(){
+    protected void move(float delta){
         direction.normalize();
-        x += velocity * direction.x;
-        y += velocity * direction.y;
+        x += delta * velocity * direction.x;
+        y += delta * velocity * direction.y;
         direction.reset();
 
         if(x - hitRadius < -1f) x = -1f + hitRadius;

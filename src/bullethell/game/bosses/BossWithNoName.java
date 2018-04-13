@@ -14,7 +14,7 @@ public class BossWithNoName extends Boss{
     }
 
     @Override
-    protected void move(){
+    protected void move(float delta){
     }
 
     @Override

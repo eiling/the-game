@@ -36,13 +36,13 @@ public class Bullets{
         }
     }
 
-    public void update(){
+    public void update(float delta){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
             Bullet bullet = temp.bullet;
-            bullet.update();
+            bullet.update(delta);
             if(bullet.isOutOfScreen()) remove(bullet);
             temp = temp.next;
         }
@@ -59,12 +59,12 @@ public class Bullets{
         return false;
     }
 
-    public void render(Renderer renderer){
+    public void render(Renderer renderer, float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.bullet.render(renderer);
+            temp.bullet.render(renderer, alpha);
             temp = temp.next;
         }
     }

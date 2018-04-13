@@ -11,5 +11,10 @@ public class DestroyableWithNoName extends Destroyable{
     }
 
     @Override
+    protected void move(float delta){
+
+    }
+
+    @Override
     public Explosion explode(){ return null; }
 }

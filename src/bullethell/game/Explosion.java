@@ -6,11 +6,13 @@ public abstract class Explosion extends TimedAnimated{
     }
 
     @Override
-    public void update(){
+    public void update(float delta){
+        prevx = x;
+        prevy = y;
+
         updateAnimation();
     }
 
     @Override
-    protected void move(){
-    } //it doesn't move!
+    protected void move(float delta){} //it doesn't move!
 }

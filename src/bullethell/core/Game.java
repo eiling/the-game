@@ -32,7 +32,7 @@ public class Game{
 
     private Timer timer;
 
-    private static final float TARGET_UPS = 60f;
+    private static final float TARGET_UPS = 120f;
 
     public static void main(String[] args){
         new Game().start();
@@ -81,7 +81,6 @@ public class Game{
         float alpha;
 
         while(!window.isClosing()){
-
             delta = timer.getDelta();
             accumulator += delta;
 
@@ -94,14 +93,9 @@ public class Game{
                 accumulator -= interval;
             }
 
-            alpha = accumulator / interval; //for interpolation
+            alpha = accumulator / interval;
 
-            player.render(renderer);
-            playerBullets.render(renderer);
-            enemies.render(renderer);
-            bullets.render(renderer);
-            explosions.render(renderer);
-
+            render(alpha);
             renderer.draw();
 
             timer.updateFPS();
@@ -110,7 +104,9 @@ public class Game{
 
             window.update();
 
-            System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+            //System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+
+            System.out.println(accumulator);
 
             //maybe put a fps limiter here... just maybe...
         }
@@ -122,19 +118,22 @@ public class Game{
     }
 
     private void update(float delta){
-        player.update(playerBullets);
-        playerBullets.update();
-        enemies.update(bullets);
-        bullets.update();
+        player.update(playerBullets, delta);
+        playerBullets.update(delta);
+        enemies.update(bullets, delta);
+        bullets.update(delta);
         explosions.update();
 
-        if(enemies.collided(player) || bullets.collided(player))
-            explosions.add(new Explosion(0f, 0f, 1f, 27, 16, 100){
-                @Override
-                public void drawHitRadius(Renderer renderer){
-                }
-            });
+        if(enemies.collided(player) || bullets.collided(player));
         enemies.handleCollisions(playerBullets, explosions);
+    }
+
+    private void render(float alpha){
+        player.render(renderer, alpha);
+        playerBullets.render(renderer, alpha);
+        enemies.render(renderer, alpha);
+        bullets.render(renderer, alpha);
+        explosions.render(renderer);
     }
 
     private void wait(long start, long interval){

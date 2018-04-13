@@ -36,8 +36,10 @@ abstract class Animated extends GameObject{
     }
 
     @Override
-    public void render(Renderer renderer){
-        renderer.drawTexture(x, y, scale, currentAnimationFrame);
+    public void render(Renderer renderer, float alpha){
+        float interpolatedX = prevx * (1 - alpha) + x * alpha;
+        float interpolatedY = prevy * (1 - alpha) + y * alpha;
+        renderer.drawTexture(interpolatedX, interpolatedY, scale, currentAnimationFrame);
         drawHitRadius(renderer);
     }
 

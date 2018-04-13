@@ -8,7 +8,7 @@ import bullethell.util.lists.Bullets;
 
 public class CharacterWithNoName extends Character{
     public CharacterWithNoName(float x, float y){
-        super(x, y, 0.2f, 0.05f, new Vec2f(0f, 0f),
+        super(x, y, 0.2f, 1f, new Vec2f(0f, 0f),
                 16, 2, 500, 0.05f,
                 100);
     }

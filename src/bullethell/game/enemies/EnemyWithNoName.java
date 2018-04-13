@@ -19,7 +19,7 @@ public class EnemyWithNoName extends Enemy{
     }
 
     @Override
-    protected void move(){
+    protected void move(float delta){
     }
 
     @Override

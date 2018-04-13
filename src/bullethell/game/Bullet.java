@@ -14,13 +14,16 @@ public abstract class Bullet extends GameObject{
     }
 
     @Override
-    public void update(){
-        move();
+    public void update(float delta){
+        prevx = x;
+        prevy = y;
+
+        move(delta);
     }
 
-    protected void move(){
-        x += velocity * direction.x;
-        y += velocity * direction.y;
+    protected void move(float delta){
+        x += delta * velocity * direction.x;
+        y += delta * velocity * direction.y;
     }
 
     public boolean isOutOfScreen(){
@@ -28,7 +31,9 @@ public abstract class Bullet extends GameObject{
     }
 
     @Override
-    public void render(Renderer renderer){
-        renderer.drawTexture(x, y, scale, texID);
+    public void render(Renderer renderer, float alpha){
+        float interpolatedX = prevx * (1 - alpha) + x * alpha;
+        float interpolatedY = prevy * (1 - alpha) + y * alpha;
+        renderer.drawTexture(interpolatedX, interpolatedY, scale, texID);
     }
 }

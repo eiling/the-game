@@ -42,7 +42,7 @@ public class Explosions{
         while(temp != null){
             Explosion e = temp.explosion;
             temp = temp.next;
-            e.update();
+            e.update(0f);
             if(e.isOver()) remove(e);
         }
     }
@@ -52,7 +52,7 @@ public class Explosions{
 
         Node temp = first;
         while(temp != null){
-            temp.explosion.render(renderer);
+            temp.explosion.render(renderer, 0f);
             temp = temp.next;
         }
     }
