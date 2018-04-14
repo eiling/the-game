@@ -43,7 +43,7 @@ public class Bullets{
         while(temp != null){
             Bullet bullet = temp.bullet;
             bullet.update(delta);
-            if(bullet.isOutOfScreen()) remove(bullet);
+            if(bullet.isOutOfCanvas()) remove(bullet);
             temp = temp.next;
         }
     }
@@ -77,7 +77,7 @@ public class Bullets{
     }
 
     private class Node{
-        private Bullet bullet;
+        private final Bullet bullet;
         private Node next;
 
         private Node(Bullet bullet){

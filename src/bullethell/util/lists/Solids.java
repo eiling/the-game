@@ -44,7 +44,7 @@ public class Solids{
         while(temp != null){
             Solid solid = temp.solid;
             solid.update(delta);
-            if(solid.isOutOfScreen()) remove(solid);
+            if(solid.isOutOfCanvas()) remove(solid);
             temp = temp.next;
         }
     }
@@ -89,7 +89,7 @@ public class Solids{
     }
 
     private class Node{
-        private Solid solid;
+        private final Solid solid;
         private Node next;
 
         private Node(Solid solid){

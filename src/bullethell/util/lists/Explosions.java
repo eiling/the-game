@@ -62,7 +62,7 @@ public class Explosions{
     }
 
     private class Node{
-        private Explosion explosion;
+        private final Explosion explosion;
         private Node next;
 
         private Node(Explosion explosion){

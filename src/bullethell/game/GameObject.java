@@ -7,7 +7,7 @@ abstract class GameObject{
     protected float x, y;
     protected float velocity;
     protected Vec2f direction;
-    float scale;
+    final float scale;
 
     float prevx, prevy;
 
@@ -28,7 +28,12 @@ abstract class GameObject{
 
     public abstract void render(Renderer renderer, float alpha);
 
-    static boolean isOutside(float top, float bottom, float right, float left){
-        return top > 1f || bottom < -1f || right > 1f || left < -1f;
+    public boolean isOutOfCanvas(){
+        return isOutside(x - scale, x + scale, y - scale, y + scale);
+    }
+
+    private static boolean isOutside(float top, float bottom, float right, float left){
+        final float c = 1.5f; //canvas half-width
+        return top > c || bottom < -c || right > c || left < -c;
     }
 }

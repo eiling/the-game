@@ -4,10 +4,10 @@ import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
 public abstract class Bullet extends GameObject{
-    float hitRadius;
-    private int texID;
+    final float hitRadius;
+    private final int texID;
 
-    public Bullet(float x, float y, float scale, float hitRadius, float velocity, Vec2f direction, int texID){
+    protected Bullet(float x, float y, float scale, float hitRadius, float velocity, Vec2f direction, int texID){
         super(x, y, scale, velocity, direction);
         this.hitRadius = hitRadius;
         this.texID = texID;
@@ -24,10 +24,6 @@ public abstract class Bullet extends GameObject{
     protected void move(float delta){
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
-    }
-
-    public boolean isOutOfScreen(){
-        return isOutside(x - hitRadius, x + hitRadius, y - hitRadius, y + hitRadius);
     }
 
     @Override

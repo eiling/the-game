@@ -43,5 +43,5 @@ abstract class Animated extends GameObject{
         drawHitRadius(renderer);
     }
 
-    public abstract void drawHitRadius(Renderer renderer);
+    protected abstract void drawHitRadius(Renderer renderer);
 }

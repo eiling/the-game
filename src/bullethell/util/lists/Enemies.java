@@ -45,7 +45,7 @@ public class Enemies{
             Enemy enemy = temp.enemy;
             enemy.update(delta);
             enemy.bullets.update(delta);
-            if(enemy.isOutOfScreen()) remove(enemy);
+            if(enemy.isOutOfCanvas()) remove(enemy);
             temp = temp.next;
         }
     }
@@ -92,7 +92,7 @@ public class Enemies{
     }
 
     private class Node{
-        private Enemy enemy;
+        private final Enemy enemy;
         private Node next;
 
         private Node(Enemy enemy){

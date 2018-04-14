@@ -2,13 +2,11 @@ package bullethell.game;
 
 import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
-import bullethell.util.Timer;
-import bullethell.util.lists.Bullets;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public abstract class Character extends Entity{
-    private boolean shooting;
+    public boolean shooting;
 
     private int lives;
     private long wait;
@@ -67,10 +65,6 @@ public abstract class Character extends Entity{
         if(glfwGetKey(windowID, GLFW_KEY_DOWN) == GLFW_PRESS) direction.y -= 1f;
         if(glfwGetKey(windowID, GLFW_KEY_RIGHT) == GLFW_PRESS) direction.x += 1f;
         if(glfwGetKey(windowID, GLFW_KEY_LEFT) == GLFW_PRESS) direction.x -= 1f;
-    }
-
-    public void setShooting(boolean shooting){
-        this.shooting = shooting;
     }
 
     public boolean collided(Solid solid){

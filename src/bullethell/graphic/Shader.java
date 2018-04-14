@@ -5,7 +5,7 @@ import java.io.*;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.opengl.GL20.*;
 
-public class Shader{
+class Shader{
     public static int load(String vertexShader, String fragmentShader){
         int VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
         int FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -42,7 +42,7 @@ public class Shader{
         return ProgramID;
     }
 
-    public static CharSequence readFile(String path){
+    private static CharSequence readFile(String path){
         StringBuilder builder = new StringBuilder();
 
         try(InputStream in = new FileInputStream(path);

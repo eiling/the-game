@@ -59,8 +59,8 @@ public class Game{
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods){
                 if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
-                else if(key == GLFW_KEY_Z && action == GLFW_PRESS) player.setShooting(true);
-                else if(key == GLFW_KEY_Z && action == GLFW_RELEASE) player.setShooting(false);
+                else if(key == GLFW_KEY_Z && action == GLFW_PRESS) player.shooting = true;
+                else if(key == GLFW_KEY_Z && action == GLFW_RELEASE) player.shooting = false;
             }
         };
         window.setKeyCallback(keyCallback);

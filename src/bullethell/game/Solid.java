@@ -33,10 +33,6 @@ public abstract class Solid extends Animated{
         return dx2 + dy2 < minDist * minDist;
     }
 
-    public boolean isOutOfScreen(){
-        return isOutside(x - hitRadius, x + hitRadius, y - hitRadius, y + hitRadius);
-    }
-
     public abstract Explosion explode();
 
     @Override

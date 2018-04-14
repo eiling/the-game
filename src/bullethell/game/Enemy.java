@@ -27,7 +27,7 @@ public abstract class Enemy extends Entity{
             last = now;
         } else if(now - last >= shootInterval){
             shoot();
-            last += shootInterval;
+            last = now;
         }
     }
 
