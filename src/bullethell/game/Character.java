@@ -1,6 +1,8 @@
 package bullethell.game;
 
+import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
+import bullethell.util.Timer;
 import bullethell.util.lists.Bullets;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -8,30 +10,44 @@ import static org.lwjgl.glfw.GLFW.*;
 public abstract class Character extends Entity{
     private boolean shooting;
 
+    private int lives;
+    private long wait;
+
+    public final int damage;
+
     protected Character(float x, float y, float scale, float velocity, Vec2f direction,
                         int startingFrame, int numberOfFrames, long frameInterval, float hitRadius,
-                        long shootInterval){
+                        long shootInterval, int damage){
         super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius,
                 shootInterval, -1);
 
+        this.damage = damage;
+
         shooting = false;
+
+        lives = 3;
+        wait = 0;
     }
 
     @Override
-    public void update(Bullets bullets, float delta){
-        update(delta);
+    public void update(float delta){
+        super.update(delta);
+
+        bullets.update(delta);
 
         if(shooting){
             long now = System.currentTimeMillis();
             if(last == -1){
-                shoot(bullets);
+                shoot();
                 last = now;
             } else if(now - last >= shootInterval){
-                shoot(bullets);
+                shoot();
                 last = now;
             }
         }
     }
+
+    protected abstract void shoot();
 
     @Override
     protected void move(float delta){
@@ -59,5 +75,21 @@ public abstract class Character extends Entity{
 
     public boolean collided(Solid solid){
         return checkCollision(x - solid.x, y - solid.y, hitRadius + solid.hitRadius);
+    }
+
+    public boolean die(){
+        long now = System.currentTimeMillis();
+        if(now - wait < 1000) return false;
+        wait = now;
+        return --lives == 0;
+    }
+
+    @Override
+    public void render(Renderer renderer, float alpha){
+        super.render(renderer, alpha);
+
+        bullets.render(renderer, alpha);
+
+        for(int i = 0; i < lives; i++) renderer.drawTexture(-0.95f + 0.1f * i,0.95f, 0.05f, startingFrame);
     }
 }

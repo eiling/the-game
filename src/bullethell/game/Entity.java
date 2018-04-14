@@ -6,6 +6,8 @@ import bullethell.util.lists.Bullets;
 public abstract class Entity extends Solid{
     long last, shootInterval;
 
+    public Bullets bullets;
+
     Entity(float x, float y, float scale, float velocity, Vec2f direction,
           int startingFrame, int numberOfFrames, long frameInterval, float hitRadius,
           long shootInterval, long last){
@@ -13,20 +15,9 @@ public abstract class Entity extends Solid{
 
         this.last = last;
         this.shootInterval = shootInterval;
+
+        bullets = new Bullets();
     }
 
-    public void update(Bullets bullets, float delta){
-        update(delta);
-
-        long now = System.currentTimeMillis();
-        if(last == -1){
-            shoot(bullets);
-            last = now;
-        } else if(now - last >= shootInterval){
-            shoot(bullets);
-            last = now;
-        }
-    }
-
-    protected abstract void shoot(Bullets bullets);
+    protected abstract void shoot();
 }

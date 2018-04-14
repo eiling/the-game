@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.stb.STBImage.*;
 
-public class Texture{
+class Texture{
     static final float[] st = new float[]{
             0.54785156f, 0.984375f, 0.56347656f, 1.0f, //Enemy1 -- texID == 0
             0.5644531f, 0.984375f, 0.5800781f, 1.0f, //Enemy2 -- texID == 1
@@ -88,11 +88,11 @@ public class Texture{
         return texture;
     }
 
-    public void bind(){
+    private void bind(){
         glBindTexture(GL_TEXTURE_2D, id);
     }
 
-    public void delete(){
+    void delete(){
         glDeleteTextures(id);
     }
 }

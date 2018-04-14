@@ -10,7 +10,7 @@ public class BossWithNoName extends Boss{
     public BossWithNoName(float x, float y){
         super(x, y, 0.2f, 0.01f, new Vec2f(0f, 0f),
                 0, 2, 100, 0.2f,
-                500);
+                500, 100);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class BossWithNoName extends Boss{
     }
 
     @Override
-    protected void shoot(Bullets bullets){
+    protected void shoot(){
     }
 
     @Override

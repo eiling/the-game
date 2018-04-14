@@ -5,7 +5,6 @@ import bullethell.game.Explosion;
 import bullethell.game.bullets.BulletWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
-import bullethell.util.lists.Bullets;
 
 import static bullethell.math.Trig.*;
 
@@ -15,7 +14,7 @@ public class EnemyWithNoName extends Enemy{
     public EnemyWithNoName(float x, float y){
         super(x, y, 0.2f, 0.05f, new Vec2f(0f, 0f),
                 0, 2, 500, 0.2f,
-                2000);
+                200, 10);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class EnemyWithNoName extends Enemy{
     }
 
     @Override
-    protected void shoot(Bullets bullets){
+    protected void shoot(){
         for(int i = 16; i <= 20; i ++){
             float theta = i*N;
             bullets.add(new BulletWithNoName(x, y, new Vec2f(cos(theta), sin(theta))));

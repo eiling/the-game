@@ -6,8 +6,7 @@ import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
-import bullethell.util.lists.Bullets;
-import bullethell.util.lists.Entities;
+import bullethell.util.lists.Enemies;
 import bullethell.util.lists.Explosions;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -23,9 +22,7 @@ public class Game{
     private Renderer renderer;
 
     private Character player;
-    private Bullets playerBullets;
-    private Entities enemies;
-    private Bullets bullets;
+    private Enemies enemies;
     //private Solids powerUps;
     //private Solids destroyables;
     private Explosions explosions;
@@ -72,9 +69,7 @@ public class Game{
         renderer.init();
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
-        playerBullets = new Bullets();
-        enemies = new Entities();
-        bullets = new Bullets();
+        enemies = new Enemies();
         explosions = new Explosions();
 
         //this will not exist
@@ -120,7 +115,7 @@ public class Game{
 
             window.update();
 
-            System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+            //System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
 
             //maybe put a fps limiter here... just maybe...
         }
@@ -132,21 +127,17 @@ public class Game{
     }
 
     private void update(float delta){
-        player.update(playerBullets, delta);
-        playerBullets.update(delta);
-        enemies.update(bullets, delta);
-        bullets.update(delta);
+        player.update(delta);
+        enemies.update(delta);
         explosions.update();
 
-        if(enemies.collided(player) || bullets.collided(player, false));
-        enemies.handleCollisions(playerBullets, explosions);
+        if(enemies.collided(player)) if(player.die()) running = false;
+        enemies.handleCollisions(player, explosions);
     }
 
     private void render(float alpha){
         player.render(renderer, alpha);
-        playerBullets.render(renderer, alpha);
         enemies.render(renderer, alpha);
-        bullets.render(renderer, alpha);
         explosions.render(renderer);
     }
 

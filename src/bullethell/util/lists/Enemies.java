@@ -1,35 +1,35 @@
 package bullethell.util.lists;
 
-import bullethell.game.Entity;
+import bullethell.game.Enemy;
 import bullethell.game.Character;
 import bullethell.graphic.Renderer;
 
-public class Entities{
+public class Enemies{
     private Node first;
     private Node last;
 
-    public void add(Entity entity){
+    public void add(Enemy enemy){
         if(isEmpty()){
-            first = new Node(entity);
+            first = new Node(enemy);
             last = first;
         }
         else{
-            last.next = new Node(entity);
+            last.next = new Node(enemy);
             last = last.next;
         }
     }
 
-    private void remove(Entity entity){
+    private void remove(Enemy enemy){
         if(isEmpty()) return;
 
-        if(first.entity == entity){
+        if(first.enemy == enemy){
             first = first.next;
             return;
         }
 
         Node temp = first;
         while(temp.next != null){
-            if(temp.next.entity == entity){
+            if(temp.next.enemy == enemy){
                 temp.next = temp.next.next;
                 break;
             }
@@ -37,14 +37,15 @@ public class Entities{
         }
     }
 
-    public void update(Bullets bullets, float delta){
+    public void update(float delta){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            Entity entity = temp.entity;
-            entity.update(bullets, delta);
-            if(entity.isOutOfScreen()) remove(entity);
+            Enemy enemy = temp.enemy;
+            enemy.update(delta);
+            enemy.bullets.update(delta);
+            if(enemy.isOutOfScreen()) remove(enemy);
             temp = temp.next;
         }
     }
@@ -54,22 +55,23 @@ public class Entities{
 
         Node temp = first;
         while(temp != null) {
-            if(character.collided(temp.entity)) return true;
+            if(character.collided(temp.enemy)) return true;
+            if(temp.enemy.bullets.collided(character, false)) return true;
             temp = temp.next;
         }
         return false;
     }
 
-    public void handleCollisions(Bullets bullets, Explosions explosions){
+    public void handleCollisions(Character character, Explosions explosions){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            Entity entity = temp.entity;
+            Enemy enemy = temp.enemy;
             temp = temp.next;
-            if(bullets.collided(entity, true)) {
-                explosions.add(entity.explode());
-                remove(entity);
+            if(character.bullets.collided(enemy, true)) {
+                explosions.add(enemy.explode());
+                if(enemy.damage(character.damage)) remove(enemy);
             }
         }
     }
@@ -79,7 +81,8 @@ public class Entities{
 
         Node temp = first;
         while(temp != null){
-            temp.entity.render(renderer, alpha);
+            temp.enemy.render(renderer, alpha);
+            temp.enemy.bullets.render(renderer, alpha);
             temp = temp.next;
         }
     }
@@ -89,11 +92,11 @@ public class Entities{
     }
 
     private class Node{
-        private Entity entity;
+        private Enemy enemy;
         private Node next;
 
-        private Node(Entity entity){
-            this.entity = entity;
+        private Node(Enemy enemy){
+            this.enemy = enemy;
             next = null;
         }
     }
