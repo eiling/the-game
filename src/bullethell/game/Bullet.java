@@ -1,35 +1,15 @@
 package bullethell.game;
 
-import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
-public abstract class Bullet extends GameObject{
-    final float hitRadius;
-    private final int texID;
-
-    protected Bullet(float x, float y, float scale, float hitRadius, float velocity, Vec2f direction, int texID){
-        super(x, y, scale, velocity, direction);
-        this.hitRadius = hitRadius;
-        this.texID = texID;
+public abstract class Bullet extends NonCyclic {
+    public Bullet(float x, float y, float scale, int startingFrame, int finalFrame, long frameInterval, float velocity, Vec2f direction, float hitRadius){
+        super(x, y, scale, startingFrame, finalFrame, frameInterval, velocity, direction, hitRadius);
     }
 
     @Override
-    public void update(float delta){
-        prevx = x;
-        prevy = y;
-
-        move(delta);
-    }
-
     protected void move(float delta){
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
-    }
-
-    @Override
-    public void render(Renderer renderer, float alpha){
-        float interpolatedX = prevx * (1 - alpha) + x * alpha;
-        float interpolatedY = prevy * (1 - alpha) + y * alpha;
-        renderer.drawTexture(interpolatedX, interpolatedY, scale, texID);
     }
 }

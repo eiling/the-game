@@ -3,7 +3,7 @@ package bullethell.game;
 import bullethell.math.Vec2f;
 import bullethell.util.lists.Bullets;
 
-public abstract class Entity extends Solid{
+public abstract class Entity extends Cyclic {
     long last, shootInterval;
 
     public Bullets bullets;

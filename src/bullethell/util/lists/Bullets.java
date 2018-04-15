@@ -1,7 +1,7 @@
 package bullethell.util.lists;
 
 import bullethell.game.Bullet;
-import bullethell.game.Solid;
+import bullethell.game.Cyclic;
 import bullethell.graphic.Renderer;
 
 public class Bullets{
@@ -48,12 +48,12 @@ public class Bullets{
         }
     }
 
-    boolean collided(Solid solid, boolean isFromPlayer){
+    boolean collided(Cyclic cyclic, boolean isFromPlayer){
         if(isEmpty()) return false;
 
         Node temp = first;
         while(temp != null) {
-            if(solid.collided(temp.bullet)){
+            if(cyclic.collided(temp.bullet)){
                 if(isFromPlayer) remove(temp.bullet);
                 return true;
             }

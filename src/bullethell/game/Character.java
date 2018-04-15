@@ -67,10 +67,6 @@ public abstract class Character extends Entity{
         if(glfwGetKey(windowID, GLFW_KEY_LEFT) == GLFW_PRESS) direction.x -= 1f;
     }
 
-    public boolean collided(Solid solid){
-        return checkCollision(x - solid.x, y - solid.y, hitRadius + solid.hitRadius);
-    }
-
     public boolean die(){
         long now = System.currentTimeMillis();
         if(now - wait < 1000) return false;

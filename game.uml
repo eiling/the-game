@@ -3,125 +3,120 @@
   <ID>JAVA</ID>
   <OriginalElement>bullethell.game</OriginalElement>
   <nodes>
-    <node x="456.7171052631578" y="0.0">bullethell.game.GameObject</node>
-    <node x="347.32236842105254" y="812.0">bullethell.game.Entity</node>
-    <node x="424.99999999999994" y="980.0">bullethell.game.Character</node>
-    <node x="467.49999999999994" y="1302.0">bullethell.game.characters</node>
-    <node x="683.5" y="845.5">bullethell.game.Destroyable</node>
-    <node x="954.0" y="666.5">bullethell.game.bullets</node>
-    <node x="613.0" y="600.0">bullethell.game.Solid</node>
-    <node x="204.99999999999994" y="1068.0">bullethell.game.Enemy</node>
-    <node x="17.0" y="834.5">bullethell.game.Explosion</node>
-    <node x="29.0" y="1101.5">bullethell.game.explosions</node>
-    <node x="338.2171052631578" y="344.0">bullethell.game.Animated</node>
-    <node x="302.74999999999994" y="1381.0">bullethell.game.bosses</node>
-    <node x="331.24999999999994" y="1302.0">bullethell.game.Boss</node>
-    <node x="168.24999999999994" y="1302.0">bullethell.game.enemies</node>
-    <node x="903.0" y="1101.5">bullethell.game.powerups</node>
-    <node x="688.0" y="1101.5">bullethell.game.destroyables</node>
-    <node x="0.0" y="622.0">bullethell.game.TimedAnimated</node>
-    <node x="898.5" y="377.0">bullethell.game.Bullet</node>
-    <node x="883.5" y="823.5">bullethell.game.PowerUp</node>
+    <node x="285.64814814814815" y="811.0">bullethell.game.Entity</node>
+    <node x="375.0" y="979.0">bullethell.game.Character</node>
+    <node x="415.5" y="1279.0">bullethell.game.characters</node>
+    <node x="41.0" y="1089.5">bullethell.game.bullets</node>
+    <node x="640.5" y="443.0">bullethell.game.Timed</node>
+    <node x="175.00000000000003" y="1056.0">bullethell.game.Enemy</node>
+    <node x="671.5" y="710.0">bullethell.game.explosions</node>
+    <node x="382.98611111111114" y="0.0">bullethell.game.Animated</node>
+    <node x="266.75" y="1358.0">bullethell.game.bosses</node>
+    <node x="287.75" y="1279.0">bullethell.game.Boss</node>
+    <node x="144.75" y="1279.0">bullethell.game.enemies</node>
+    <node x="665.125" y="1089.5">bullethell.game.powerups</node>
+    <node x="470.64814814814815" y="855.5">bullethell.game.destroyables</node>
+    <node x="222.73611111111114" y="344.0">bullethell.game.Moving</node>
+    <node x="445.5" y="688.0">bullethell.game.Cyclic</node>
+    <node x="19.5" y="844.5">bullethell.game.Bullet</node>
+    <node x="0.0" y="699.0">bullethell.game.NonCyclic</node>
+    <node x="652.125" y="844.5">bullethell.game.PowerUp</node>
   </nodes>
   <notes />
   <edges>
     <edge source="bullethell.game.Character" target="bullethell.game.Entity">
-      <point x="0.0" y="-136.0" />
-      <point x="546.5" y="955.0" />
-      <point x="483.07236842105254" y="955.0" />
-      <point x="45.25" y="59.0" />
+      <point x="0.0" y="-125.0" />
+      <point x="482.0" y="954.0" />
+      <point x="409.39814814814815" y="954.0" />
+      <point x="41.25" y="59.0" />
     </edge>
-    <edge source="bullethell.game.Animated" target="bullethell.game.GameObject">
-      <point x="5.6843418860808015E-14" y="-103.0" />
-      <point x="465.2171052631578" y="319.0" />
-      <point x="538.4671052631578" y="319.0" />
-      <point x="-81.75" y="147.0" />
-    </edge>
-    <edge source="bullethell.game.Destroyable" target="bullethell.game.Solid">
+    <edge source="bullethell.game.PowerUp" target="bullethell.game.Cyclic">
       <point x="0.0" y="-25.5" />
-      <point x="0.0" y="81.0" />
+      <point x="730.625" y="786.0" />
+      <point x="617.1666666666667" y="786.0" />
+      <point x="68.66666666666674" y="36.5" />
     </edge>
-    <edge source="bullethell.game.PowerUp" target="bullethell.game.Solid">
-      <point x="0.0" y="-47.5" />
-      <point x="978.5" y="787.0" />
-      <point x="880.5" y="787.0" />
-      <point x="107.0" y="81.0" />
+    <edge source="bullethell.game.Timed" target="bullethell.game.Animated">
+      <point x="0.0" y="-48.0" />
+      <point x="738.5" y="319.0" />
+      <point x="553.2361111111111" y="319.0" />
+      <point x="56.75" y="147.0" />
+    </edge>
+    <edge source="bullethell.game.Moving" target="bullethell.game.Animated">
+      <point x="0.0" y="-147.0" />
+      <point x="365.73611111111114" y="319.0" />
+      <point x="439.73611111111114" y="319.0" />
+      <point x="-56.75" y="147.0" />
+    </edge>
+    <edge source="bullethell.game.destroyables" target="bullethell.game.Cyclic">
+      <point x="0.0" y="-14.5" />
+      <point x="543.1481481481482" y="786.0" />
+      <point x="548.5" y="786.0" />
+      <point x="0.0" y="36.5" />
     </edge>
     <edge source="bullethell.game.Enemy" target="bullethell.game.Entity">
       <point x="0.0" y="-48.0" />
-      <point x="304.99999999999994" y="955.0" />
-      <point x="392.57236842105254" y="955.0" />
-      <point x="-45.25" y="59.0" />
+      <point x="265.0" y="954.0" />
+      <point x="326.89814814814815" y="954.0" />
+      <point x="-41.25" y="59.0" />
+    </edge>
+    <edge source="bullethell.game.Cyclic" target="bullethell.game.Moving">
+      <point x="0.0" y="-36.5" />
+      <point x="548.5" y="663.0" />
+      <point x="437.23611111111114" y="663.0" />
+      <point x="71.5" y="147.0" />
+    </edge>
+    <edge source="bullethell.game.Bullet" target="bullethell.game.NonCyclic">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="25.5" />
     </edge>
     <edge source="bullethell.game.bosses" target="bullethell.game.Boss">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="bullethell.game.NonCyclic" target="bullethell.game.Moving">
+      <point x="0.0" y="-25.5" />
+      <point x="98.0" y="663.0" />
+      <point x="294.23611111111114" y="663.0" />
+      <point x="-71.5" y="147.0" />
+    </edge>
     <edge source="bullethell.game.enemies" target="bullethell.game.Enemy">
       <point x="0.0" y="-14.5" />
-      <point x="239.74999999999994" y="1277.0" />
-      <point x="254.99999999999994" y="1277.0" />
-      <point x="-50.0" y="48.0" />
+      <point x="206.25" y="1254.0" />
+      <point x="220.00000000000003" y="1254.0" />
+      <point x="-45.0" y="48.0" />
     </edge>
-    <edge source="bullethell.game.Entity" target="bullethell.game.Solid">
+    <edge source="bullethell.game.Entity" target="bullethell.game.Cyclic">
       <point x="0.0" y="-59.0" />
-      <point x="437.82236842105254" y="787.0" />
-      <point x="666.5" y="787.0" />
-      <point x="-107.0" y="81.0" />
-    </edge>
-    <edge source="bullethell.game.TimedAnimated" target="bullethell.game.Animated">
-      <point x="0.0" y="-59.0" />
-      <point x="107.0" y="575.0" />
-      <point x="401.7171052631578" y="575.0" />
-      <point x="-63.5" y="103.0" />
-    </edge>
-    <edge source="bullethell.game.Solid" target="bullethell.game.Animated">
-      <point x="0.0" y="-81.0" />
-      <point x="773.5" y="575.0" />
-      <point x="528.7171052631578" y="575.0" />
-      <point x="63.50000000000006" y="103.0" />
+      <point x="368.14814814814815" y="786.0" />
+      <point x="479.83333333333337" y="786.0" />
+      <point x="-68.66666666666663" y="36.5" />
     </edge>
     <edge source="bullethell.game.bullets" target="bullethell.game.Bullet">
       <point x="0.0" y="-14.5" />
-      <point x="0.0" y="70.0" />
+      <point x="0.0" y="25.5" />
     </edge>
     <edge source="bullethell.game.characters" target="bullethell.game.Character">
       <point x="0.0" y="-14.5" />
-      <point x="0.0" y="136.0" />
-    </edge>
-    <edge source="bullethell.game.explosions" target="bullethell.game.Explosion">
-      <point x="0.0" y="-14.5" />
-      <point x="0.0" y="36.5" />
-    </edge>
-    <edge source="bullethell.game.Bullet" target="bullethell.game.GameObject">
-      <point x="0.0" y="-70.0" />
-      <point x="1020.0" y="319.0" />
-      <point x="701.9671052631578" y="319.0" />
-      <point x="81.75" y="147.0" />
-    </edge>
-    <edge source="bullethell.game.Explosion" target="bullethell.game.TimedAnimated">
-      <point x="0.0" y="-36.5" />
-      <point x="0.0" y="59.0" />
+      <point x="0.0" y="125.0" />
     </edge>
     <edge source="bullethell.game.Boss" target="bullethell.game.Enemy">
       <point x="0.0" y="-14.5" />
-      <point x="370.24999999999994" y="1277.0" />
-      <point x="354.99999999999994" y="1277.0" />
-      <point x="50.0" y="48.0" />
+      <point x="323.75" y="1254.0" />
+      <point x="310.0" y="1254.0" />
+      <point x="45.0" y="48.0" />
+    </edge>
+    <edge source="bullethell.game.explosions" target="bullethell.game.Timed">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="48.0" />
     </edge>
     <edge source="bullethell.game.powerups" target="bullethell.game.PowerUp">
-      <point x="0.0" y="-14.5" />
-      <point x="0.0" y="47.5" />
-    </edge>
-    <edge source="bullethell.game.destroyables" target="bullethell.game.Destroyable">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="25.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.26223776223776224" x="566.0" y="705.0" />
-  <SelectedNodes>
-    <node>bullethell.game.Animated</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="308.5" y="270.5" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Methods</Category>

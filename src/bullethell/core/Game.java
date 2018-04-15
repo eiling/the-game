@@ -6,8 +6,8 @@ import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
-import bullethell.util.lists.Enemies;
-import bullethell.util.lists.Explosions;
+import bullethell.util.lists.Cyclics;
+import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
@@ -22,10 +22,9 @@ public class Game{
     private Renderer renderer;
 
     private Character player;
-    private Enemies enemies;
-    //private Solids powerUps;
-    //private Solids destroyables;
-    private Explosions explosions;
+    private Cyclics enemies; //destroyables go here too
+    //private Cyclics powerUps;
+    private Timeds timeds;
 
     private Timer timer;
 
@@ -69,8 +68,8 @@ public class Game{
         renderer.init();
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
-        enemies = new Enemies();
-        explosions = new Explosions();
+        enemies = new Cyclics();
+        timeds = new Timeds();
 
         //this will not exist
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
@@ -115,7 +114,7 @@ public class Game{
 
             window.update();
 
-            //System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+            System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
 
             //maybe put a fps limiter here... just maybe...
         }
@@ -129,16 +128,16 @@ public class Game{
     private void update(float delta){
         player.update(delta);
         enemies.update(delta);
-        explosions.update();
+        timeds.update();
 
         if(enemies.collided(player)) if(player.die()) running = false;
-        enemies.handleCollisions(player, explosions);
+        enemies.handleCollisions(player, timeds);
     }
 
     private void render(float alpha){
         player.render(renderer, alpha);
         enemies.render(renderer, alpha);
-        explosions.render(renderer);
+        timeds.render(renderer);
     }
 
     private void wait(long start, long interval){

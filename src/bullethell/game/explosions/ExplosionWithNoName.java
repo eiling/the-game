@@ -1,14 +1,9 @@
 package bullethell.game.explosions;
 
-import bullethell.game.Explosion;
-import bullethell.graphic.Renderer;
+import bullethell.game.Timed;
 
-public class ExplosionWithNoName extends Explosion{
+public class ExplosionWithNoName extends Timed {
     public ExplosionWithNoName(float x, float y){
-        super(x, y, 0.2f, 27, 16, 100);
-    }
-
-    @Override
-    public void drawHitRadius(Renderer renderer){
+        super(x, y, 0.2f, 27, 42, 100);
     }
 }

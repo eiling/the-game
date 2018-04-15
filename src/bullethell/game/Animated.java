@@ -1,47 +1,55 @@
 package bullethell.game;
 
 import bullethell.graphic.Renderer;
-import bullethell.math.Vec2f;
 
-abstract class Animated extends GameObject{
+abstract class Animated{
+    public float x, y;
+    float scale;
+
     final int startingFrame;
-    final int numberOfFrames;
+    final int finalFrame;
     final long frameInterval;
     int currentAnimationFrame;
     long lastFrameTime;
 
-    Animated(float x, float y, float scale, float velocity, Vec2f direction,
-             int startingFrame, int numberOfFrames, long frameInterval){
-        super(x, y, scale, velocity, direction);
+    Animated(float x, float y, float scale, int startingFrame, int finalFrame, long frameInterval){
+        if(finalFrame < startingFrame){
+            System.err.println("finalFrame < startingFrame");
+            System.exit(1);
+        }
+
+        this.x = x;
+        this.y = y;
+        this.scale = scale;
 
         this.startingFrame = startingFrame;
-        this.numberOfFrames = numberOfFrames;
+        this.finalFrame = finalFrame;
         this.frameInterval = frameInterval;
 
         currentAnimationFrame = this.startingFrame;
         lastFrameTime = -1;
     }
 
+    public void update(){
+        updateAnimation();
+    }
+
     void updateAnimation(){
         if(lastFrameTime == -1) lastFrameTime = System.currentTimeMillis();
         else{
             long now = System.currentTimeMillis();
-            long elapsed = now - lastFrameTime;
-            if(elapsed > frameInterval){
-                lastFrameTime = now - elapsed + frameInterval;
-                if(++currentAnimationFrame == startingFrame + numberOfFrames)
+            if(now - lastFrameTime > frameInterval){
+                lastFrameTime = now;
+                if(currentAnimationFrame++ == finalFrame)
                     currentAnimationFrame = startingFrame;
             }
         }
     }
 
-    @Override
-    public void render(Renderer renderer, float alpha){
-        float interpolatedX = prevx * (1 - alpha) + x * alpha;
-        float interpolatedY = prevy * (1 - alpha) + y * alpha;
-        renderer.drawTexture(interpolatedX, interpolatedY, scale, currentAnimationFrame);
+    public void render(Renderer renderer){
+        renderer.drawTexture(x, y, scale, currentAnimationFrame);
         drawHitRadius(renderer);
     }
 
-    protected abstract void drawHitRadius(Renderer renderer);
+    void drawHitRadius(Renderer renderer){}
 }

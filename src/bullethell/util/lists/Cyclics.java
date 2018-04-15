@@ -4,7 +4,7 @@ import bullethell.game.Enemy;
 import bullethell.game.Character;
 import bullethell.graphic.Renderer;
 
-public class Enemies{
+public class Cyclics{
     private Node first;
     private Node last;
 
@@ -62,7 +62,7 @@ public class Enemies{
         return false;
     }
 
-    public void handleCollisions(Character character, Explosions explosions){
+    public void handleCollisions(Character character, Timeds timeds){
         if(isEmpty()) return;
 
         Node temp = first;
@@ -71,9 +71,9 @@ public class Enemies{
             temp = temp.next;
             if(character.bullets.collided(enemy, true)){
                 if(enemy.damage(character.damage)){
-                    explosions.add(enemy.explode());
+                    timeds.add(enemy.explode());
                     remove(enemy);
-                } else explosions.add(enemy.explode());
+                }
             }
         }
     }

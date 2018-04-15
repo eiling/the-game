@@ -1,33 +1,33 @@
 package bullethell.util.lists;
 
-import bullethell.game.Explosion;
+import bullethell.game.Timed;
 import bullethell.graphic.Renderer;
 
-public class Explosions{
+public class Timeds {
     private Node first;
     private Node last;
 
-    public void add(Explosion explosion){
+    public void add(Timed timed){
         if(isEmpty()){
-            first = new Node(explosion);
+            first = new Node(timed);
             last = first;
         } else{
-            last.next = new Node(explosion);
+            last.next = new Node(timed);
             last = last.next;
         }
     }
 
-    private void remove(Explosion explosion){
+    private void remove(Timed timed){
         if(isEmpty()) return;
 
-        if(first.explosion == explosion){
+        if(first.timed == timed){
             first = first.next;
             return;
         }
 
         Node temp = first;
         while(temp.next != null){
-            if(temp.next.explosion == explosion){
+            if(temp.next.timed == timed){
                 temp.next = temp.next.next;
                 break;
             }
@@ -40,10 +40,10 @@ public class Explosions{
 
         Node temp = first;
         while(temp != null){
-            Explosion e = temp.explosion;
+            Timed t = temp.timed;
             temp = temp.next;
-            e.update(0f);
-            if(e.isOver()) remove(e);
+            t.update();
+            if(t.isOver()) remove(t);
         }
     }
 
@@ -52,7 +52,7 @@ public class Explosions{
 
         Node temp = first;
         while(temp != null){
-            temp.explosion.render(renderer, 0f);
+            temp.timed.render(renderer);
             temp = temp.next;
         }
     }
@@ -62,11 +62,11 @@ public class Explosions{
     }
 
     private class Node{
-        private final Explosion explosion;
+        private final Timed timed;
         private Node next;
 
-        private Node(Explosion explosion){
-            this.explosion = explosion;
+        private Node(Timed timed){
+            this.timed = timed;
             next = null;
         }
     }
