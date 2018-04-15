@@ -7,7 +7,7 @@ import bullethell.math.Vec2f;
 
 public class BulletWithNoName extends Bullet{
     public BulletWithNoName(float x, float y, Vec2f direction){
-        super(x, y, 0.05f, 21, 21, 0, 1.5f, direction, 0.05f);
+        super(x, y, 0.05f, 18, 21, 0, 1.5f, direction, 0.05f);
     }
 
     @Override

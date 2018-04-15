@@ -47,6 +47,6 @@ abstract class Moving extends Animated{
 
     @Override
     public void drawHitRadius(Renderer renderer){
-        renderer.drawTexture(x, y, hitRadius, 43);
+        //renderer.drawTexture(x, y, hitRadius, 43);
     }
 }

@@ -1,5 +1,7 @@
 package bullethell.math;
 
+import static bullethell.math.Trig.*;
+
 public class Vec2f{
     public float x, y;
 
@@ -18,5 +20,14 @@ public class Vec2f{
     public void reset(){
         x = 0;
         y = 0;
+    }
+
+    public void rotate(float theta){
+        final float tempx = x;
+        final float tempy = y;
+        final float cos = cos(theta);
+        final float sin = sin(theta);
+        x = tempx * cos - tempy * sin;
+        y = tempx * sin + tempy * cos;
     }
 }

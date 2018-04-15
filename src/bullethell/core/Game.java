@@ -2,11 +2,12 @@ package bullethell.core;
 
 import bullethell.game.Character;
 import bullethell.game.characters.CharacterWithNoName;
+import bullethell.game.destroyables.DestroyableWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
-import bullethell.util.lists.Cyclics;
+import bullethell.util.lists.Enemies;
 import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -22,8 +23,8 @@ public class Game{
     private Renderer renderer;
 
     private Character player;
-    private Cyclics enemies; //destroyables go here too
-    //private Cyclics powerUps;
+    private Enemies enemies; //destroyables go here too
+    //private Enemies powerUps;
     private Timeds timeds;
 
     private Timer timer;
@@ -68,13 +69,14 @@ public class Game{
         renderer.init();
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
-        enemies = new Cyclics();
+        enemies = new Enemies();
         timeds = new Timeds();
 
         //this will not exist
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(-0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(0f, 0.5f));
+        //enemies.add(new DestroyableWithNoName(0f, 0f));
 
         running = true;
 

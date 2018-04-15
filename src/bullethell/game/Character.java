@@ -8,8 +8,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public abstract class Character extends Entity{
     public boolean shooting;
 
-    private int lives;
-    private long wait;
+    private long wait; //for invulnerability time;
 
     public final int damage;
 
@@ -17,14 +16,13 @@ public abstract class Character extends Entity{
                         int startingFrame, int numberOfFrames, long frameInterval, float hitRadius,
                         long shootInterval, int damage){
         super(x, y, scale, velocity, direction, startingFrame, numberOfFrames, frameInterval, hitRadius,
-                shootInterval, -1);
+                3, shootInterval, -1);
 
         this.damage = damage;
 
         shooting = false;
 
-        lives = 3;
-        wait = 0;
+        wait = System.currentTimeMillis();
     }
 
     @Override
@@ -71,7 +69,7 @@ public abstract class Character extends Entity{
         long now = System.currentTimeMillis();
         if(now - wait < 1000) return false;
         wait = now;
-        return --lives == 0;
+        return --life == 0;
     }
 
     @Override
@@ -80,6 +78,6 @@ public abstract class Character extends Entity{
 
         bullets.render(renderer, alpha);
 
-        for(int i = 0; i < lives; i++) renderer.drawTexture(-0.95f + 0.1f * i,0.95f, 0.05f, startingFrame);
+        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i,0.95f, 0.05f, startingFrame);
     }
 }

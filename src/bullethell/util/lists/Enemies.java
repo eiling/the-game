@@ -4,7 +4,7 @@ import bullethell.game.Enemy;
 import bullethell.game.Character;
 import bullethell.graphic.Renderer;
 
-public class Cyclics{
+public class Enemies{
     private Node first;
     private Node last;
 
