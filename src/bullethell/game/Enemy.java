@@ -1,10 +1,13 @@
 package bullethell.game;
 
+import bullethell.game.solid.SolidWithNoName;
 import bullethell.math.Vec2f;
 import bullethell.util.lists.Bullets;
 import bullethell.util.lists.Solids;
 
 public abstract class Enemy extends Entity{
+    public static Solids solids;
+
     protected Enemy(float x, float y, float scale, float velocity, Vec2f direction,
                     int startingFrame, int finalFrame, long frameInterval, float hitRadius,
                     int life, long shootInterval){
@@ -19,10 +22,7 @@ public abstract class Enemy extends Entity{
         super.update(delta);
 
         long now = System.currentTimeMillis();
-        if(last == -1){
-            shoot();
-            last = now;
-        } else if(now - last >= shootInterval){
+        if(now - last >= shootInterval){
             shoot();
             last = now;
         }

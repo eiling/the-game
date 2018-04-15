@@ -1,6 +1,7 @@
 package bullethell.core;
 
 import bullethell.game.Character;
+import bullethell.game.Enemy;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
@@ -76,9 +77,9 @@ public class Game{
         powerUps = new PowerUps();
         timeds = new Timeds();
 
+        Enemy.solids = solids;
+
         //this will not exist
-        enemies.add(new EnemyWithNoName(0.5f, 0.5f));
-        enemies.add(new EnemyWithNoName(-0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(0f, 0.5f));
         //enemies.add(new SolidWithNoName(0f, 0f));
 
@@ -140,11 +141,14 @@ public class Game{
 
         if(enemies.collided(player)) if(player.die()) running = false;
         enemies.handleCollisions(player, timeds);
+        solids.handleCollisions(player, timeds);
     }
 
     private void render(float alpha){
         player.render(renderer, alpha);
         enemies.render(renderer, alpha);
+        solids.render(renderer, alpha);
+        powerUps.render(renderer, alpha);
         timeds.render(renderer);
     }
 

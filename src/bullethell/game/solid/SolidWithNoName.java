@@ -2,6 +2,7 @@ package bullethell.game.solid;
 
 import bullethell.game.Solid;
 import bullethell.game.Timed;
+import bullethell.game.explosions.ExplosionWithNoName;
 import bullethell.math.Vec2f;
 
 public class SolidWithNoName extends Solid{
@@ -15,11 +16,11 @@ public class SolidWithNoName extends Solid{
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
 
-        direction.rotate(-0.1f);
+        direction.rotate(-0.05f);
     }
 
     @Override
     public Timed explode(){
-        return null;
+        return new ExplosionWithNoName(x, y);
     }
 }

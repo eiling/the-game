@@ -4,6 +4,7 @@ import bullethell.game.Enemy;
 import bullethell.game.Timed;
 import bullethell.game.bullets.BulletWithNoName;
 import bullethell.game.explosions.ExplosionWithNoName;
+import bullethell.game.solid.SolidWithNoName;
 import bullethell.math.Vec2f;
 
 import static bullethell.math.Trig.*;
@@ -14,7 +15,8 @@ public class EnemyWithNoName extends Enemy{
     public EnemyWithNoName(float x, float y){
         super(x, y, 0.2f, 0.05f, new Vec2f(0f, 0f),
                 0, 1, 500, 0.2f,
-                10, 1000);
+                10, 2000);
+        solids.add(new SolidWithNoName(x, y));
     }
 
     @Override
