@@ -69,9 +69,11 @@ public class Enemies{
         while(temp != null){
             Enemy enemy = temp.enemy;
             temp = temp.next;
-            if(character.bullets.collided(enemy, true)) {
-                explosions.add(enemy.explode());
-                if(enemy.damage(character.damage)) remove(enemy);
+            if(character.bullets.collided(enemy, true)){
+                if(enemy.damage(character.damage)){
+                    explosions.add(enemy.explode());
+                    remove(enemy);
+                } else explosions.add(enemy.explode());
             }
         }
     }

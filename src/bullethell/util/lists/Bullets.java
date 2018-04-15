@@ -48,13 +48,13 @@ public class Bullets{
         }
     }
 
-    public boolean collided(Solid solid, boolean isNotFromPlayer){
+    boolean collided(Solid solid, boolean isFromPlayer){
         if(isEmpty()) return false;
 
         Node temp = first;
         while(temp != null) {
             if(solid.collided(temp.bullet)){
-                if(isNotFromPlayer) remove(temp.bullet);
+                if(isFromPlayer) remove(temp.bullet);
                 return true;
             }
             temp = temp.next;
