@@ -2,12 +2,13 @@ package bullethell.core;
 
 import bullethell.game.Character;
 import bullethell.game.characters.CharacterWithNoName;
-import bullethell.game.destroyables.DestroyableWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
 import bullethell.util.lists.Enemies;
+import bullethell.util.lists.PowerUps;
+import bullethell.util.lists.Solids;
 import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -23,8 +24,9 @@ public class Game{
     private Renderer renderer;
 
     private Character player;
-    private Enemies enemies; //destroyables go here too
-    //private Enemies powerUps;
+    private Enemies enemies;
+    private Solids solids;
+    private PowerUps powerUps;
     private Timeds timeds;
 
     private Timer timer;
@@ -70,13 +72,15 @@ public class Game{
 
         player = new CharacterWithNoName(-0.5f, -0.5f);
         enemies = new Enemies();
+        solids = new Solids();
+        powerUps = new PowerUps();
         timeds = new Timeds();
 
         //this will not exist
         enemies.add(new EnemyWithNoName(0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(-0.5f, 0.5f));
         enemies.add(new EnemyWithNoName(0f, 0.5f));
-        //enemies.add(new DestroyableWithNoName(0f, 0f));
+        //enemies.add(new SolidWithNoName(0f, 0f));
 
         running = true;
 
@@ -130,6 +134,8 @@ public class Game{
     private void update(float delta){
         player.update(delta);
         enemies.update(delta);
+        solids.update(delta);
+        powerUps.update(delta);
         timeds.update();
 
         if(enemies.collided(player)) if(player.die()) running = false;

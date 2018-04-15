@@ -2,6 +2,7 @@ package bullethell.game;
 
 import bullethell.math.Vec2f;
 import bullethell.util.lists.Bullets;
+import bullethell.util.lists.Solids;
 
 public abstract class Enemy extends Entity{
     protected Enemy(float x, float y, float scale, float velocity, Vec2f direction,

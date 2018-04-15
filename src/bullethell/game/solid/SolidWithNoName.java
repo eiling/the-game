@@ -1,11 +1,11 @@
-package bullethell.game.destroyables;
+package bullethell.game.solid;
 
 import bullethell.game.Solid;
 import bullethell.game.Timed;
 import bullethell.math.Vec2f;
 
-public class DestroyableWithNoName extends Solid{
-    public DestroyableWithNoName(float x, float y){
+public class SolidWithNoName extends Solid{
+    public SolidWithNoName(float x, float y){
         super(x, y, 0.2f, 1f, new Vec2f(1f, 0f),
                 29, 29, 0, 0.2f, 5);
     }
