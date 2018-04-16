@@ -30,8 +30,8 @@ abstract class Moving extends Animated{
 
     protected abstract void move(float delta);
 
-    public void render(Renderer renderer, float alpha){
-        super.render(renderer);
+    public void render(float alpha){
+        super.render();
     }
 
     public abstract Timed explode();

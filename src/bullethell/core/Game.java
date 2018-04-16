@@ -1,5 +1,6 @@
 package bullethell.core;
 
+import bullethell.game.Animated;
 import bullethell.game.Character;
 import bullethell.game.Enemy;
 import bullethell.game.characters.CharacterWithNoName;
@@ -77,6 +78,7 @@ public class Game{
         powerUps = new PowerUps();
         timeds = new Timeds();
 
+        Animated.renderer = renderer;
         Enemy.solids = solids;
 
         //this will not exist
@@ -145,11 +147,11 @@ public class Game{
     }
 
     private void render(float alpha){
-        player.render(renderer, alpha);
-        enemies.render(renderer, alpha);
-        solids.render(renderer, alpha);
-        powerUps.render(renderer, alpha);
-        timeds.render(renderer);
+        player.render(alpha);
+        enemies.render(alpha);
+        solids.render(alpha);
+        powerUps.render(alpha);
+        timeds.render();
     }
 
     private void wait(long start, long interval){

@@ -78,13 +78,13 @@ public class Enemies{
         }
     }
 
-    public void render(Renderer renderer, float alpha){
+    public void render(float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.enemy.render(renderer, alpha);
-            temp.enemy.bullets.render(renderer, alpha);
+            temp.enemy.render(alpha);
+            temp.enemy.bullets.render(alpha);
             temp = temp.next;
         }
     }

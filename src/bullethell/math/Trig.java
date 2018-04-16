@@ -10,7 +10,7 @@ public interface Trig{
     float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);
 
     //from: http://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/
-    private static float Hill(float x){
+    static float Hill(float x){
         /*final float a2 = 2f / PI - 12f / (PI * PI);
         final float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);*/
         final float xx = x * x;

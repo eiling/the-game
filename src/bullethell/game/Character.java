@@ -73,10 +73,10 @@ public abstract class Character extends Entity{
     }
 
     @Override
-    public void render(Renderer renderer, float alpha){
-        super.render(renderer, alpha);
+    public void render(float alpha){
+        super.render(alpha);
 
-        bullets.render(renderer, alpha);
+        bullets.render(alpha);
 
         for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i,0.95f, 0.05f, startingFrame);
     }

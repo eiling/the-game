@@ -2,7 +2,9 @@ package bullethell.game;
 
 import bullethell.graphic.Renderer;
 
-abstract class Animated{
+public abstract class Animated{
+    public static Renderer renderer;
+
     public float x, y;
     float scale;
 
@@ -46,7 +48,7 @@ abstract class Animated{
         }
     }
 
-    public void render(Renderer renderer){
+    public void render(){
         renderer.drawTexture(x, y, scale, currentAnimationFrame);
         drawHitRadius(renderer);
     }
