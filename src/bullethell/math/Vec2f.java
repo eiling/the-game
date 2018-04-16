@@ -1,6 +1,7 @@
 package bullethell.math;
 
 import static bullethell.math.Trig.*;
+import static bullethell.math.WeirdMath.*;
 
 public class Vec2f{
     public float x, y;
@@ -11,10 +12,11 @@ public class Vec2f{
     }
 
     public void normalize(){
-        if((x == 1f || x == -1f) && (y == 1f || y == -1f)){
-            x *= 0.70710678118f;
-            y *= 0.70710678118f;
-        }
+        final float norma2 = x * x + y * y;
+        final float invNorma = invSqrt(norma2);
+
+        x *= invNorma;
+        y *= invNorma;
     }
 
     public void reset(){

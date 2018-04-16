@@ -4,6 +4,7 @@ import bullethell.graphic.Renderer;
 
 public abstract class Animated{
     public static Renderer renderer;
+    public static Character character;
 
     public float x, y;
     float scale;

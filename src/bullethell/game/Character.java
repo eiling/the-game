@@ -1,6 +1,5 @@
 package bullethell.game;
 
-import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
 import static org.lwjgl.glfw.GLFW.*;

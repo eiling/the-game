@@ -81,6 +81,8 @@ public class Game{
         Animated.renderer = renderer;
         Enemy.solids = solids;
 
+        Animated.character = player;
+
         //this will not exist
         enemies.add(new EnemyWithNoName(0f, 0.5f));
         //enemies.add(new SolidWithNoName(0f, 0f));
@@ -141,7 +143,7 @@ public class Game{
         powerUps.update(delta);
         timeds.update();
 
-        if(enemies.collided(player)) if(player.die()) running = false;
+        if(enemies.collided(player) || solids.collided(player)) if(player.die()) running = false;
         enemies.handleCollisions(player, timeds);
         solids.handleCollisions(player, timeds);
     }
