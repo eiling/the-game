@@ -50,10 +50,10 @@ public abstract class Character extends Entity{
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
 
-        if(x - hitRadius < -1f) x = -1f + hitRadius;
-        else if(x + hitRadius > 1f) x = 1f - hitRadius;
-        if(y - hitRadius < -1f) y = -1f + hitRadius;
-        else if(y + hitRadius > 1f) y = 1f - hitRadius;
+        if(x - hitRadius < 0f) x = 0f + hitRadius;
+        else if(x + hitRadius > 9f) x = 9f - hitRadius;
+        if(y - hitRadius < 0f) y = 0f + hitRadius;
+        else if(y + hitRadius > 16f) y = 16f - hitRadius;
     }
 
     public void input(long windowID){

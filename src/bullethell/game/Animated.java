@@ -1,9 +1,11 @@
 package bullethell.game;
 
+import bullethell.graphic.Canvas;
 import bullethell.graphic.Renderer;
 
 public abstract class Animated{
     public static Renderer renderer;
+    public static Canvas canvas;
     public static Character character;
 
     public float x, y;
@@ -50,9 +52,9 @@ public abstract class Animated{
     }
 
     public void render(){
-        renderer.drawTexture(x, y, scale, currentAnimationFrame);
-        drawHitRadius(renderer);
+        renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), scale, currentAnimationFrame);
+        drawHitRadius();
     }
 
-    void drawHitRadius(Renderer renderer){}
+    void drawHitRadius(){}
 }

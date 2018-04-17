@@ -5,6 +5,7 @@ import bullethell.game.Character;
 import bullethell.game.Enemy;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
+import bullethell.graphic.Canvas;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
@@ -43,6 +44,7 @@ public class Game{
 
     private void start(){
         init();
+        setup();
         loop();
         dispose();
     }
@@ -57,7 +59,7 @@ public class Game{
         }
 
         /* Create GLFW window */
-        window = new Window(600, 600, "Bullet Hell");
+        window = new Window(720, 640, "Bullet Hell");
 
         keyCallback = new GLFWKeyCallback(){
             @Override
@@ -71,20 +73,23 @@ public class Game{
 
         renderer = new Renderer();
         renderer.init();
+    }
 
-        player = new CharacterWithNoName(-0.5f, -0.5f);
+    private void setup(){
+        player = new CharacterWithNoName(4.5f, 2f);
         enemies = new Enemies();
         solids = new Solids();
         powerUps = new PowerUps();
         timeds = new Timeds();
 
         Animated.renderer = renderer;
+        Animated.canvas = new Canvas(0);
         Enemy.solids = solids;
 
         Animated.character = player;
 
         //this will not exist
-        enemies.add(new EnemyWithNoName(0f, 0.5f));
+        enemies.add(new EnemyWithNoName(4.5f, 14f));
         //enemies.add(new SolidWithNoName(0f, 0f));
 
         running = true;
