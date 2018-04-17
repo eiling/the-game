@@ -83,7 +83,7 @@ public class Game{
         timeds = new Timeds();
 
         Animated.renderer = renderer;
-        Animated.canvas = new Canvas(0);
+        Animated.canvas = new Canvas(-.5f);
         Enemy.solids = solids;
 
         Animated.character = player;
@@ -154,6 +154,8 @@ public class Game{
     }
 
     private void render(float alpha){
+        Animated.canvas.drawBorder(renderer);
+
         player.render(alpha);
         enemies.render(alpha);
         solids.render(alpha);

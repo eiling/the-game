@@ -62,15 +62,30 @@ public class Renderer{
         numVertices = 0;
     }
 
-    public void drawTexture(float x, float y, float k, int texID){
-        texID *= 4;
+    public void drawTexture(float x, float y, float k, int texID, final float x0, final float xn, final float y0, final float yn){
+        int i = texID * 4;
 
-        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
-        vertices.put(x + k).put(y - k).put(st[texID + 2]).put(st[texID + 1]);
-        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
-        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y + k).put(st[texID]).put(st[texID + 3]);
+        float
+                x1 = x - k, x2 = x + k,
+                y1 = y - k, y2 = y + k,
+                s1 = st[i], s2 = st[i + 2],
+                t1 = st[i + 1], t2 = st[i + 3];
+
+        /*if(x1 < x0){
+            s1 = ((x0 - x1) * (s2 - s1)) / (x2 - x1) + s1;
+            x1 = x0;
+        }*/ //bugged... weird...
+        if(x2 > xn){
+            s2 = ((xn - x1) * (s2 - s1)) / (x2 - x1) + s1;
+            x2 = xn;
+        }
+
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y1).put(s2).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y2).put(s1).put(t2);
 
         numVertices += 6;
     }

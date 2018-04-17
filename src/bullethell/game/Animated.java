@@ -3,6 +3,10 @@ package bullethell.game;
 import bullethell.graphic.Canvas;
 import bullethell.graphic.Renderer;
 
+import static bullethell.graphic.Canvas.MAX_X;
+import static bullethell.graphic.Canvas.SCALED_MAX_Y;
+import static bullethell.graphic.Canvas.SCALED_MIN_Y;
+
 public abstract class Animated{
     public static Renderer renderer;
     public static Canvas canvas;
@@ -52,7 +56,7 @@ public abstract class Animated{
     }
 
     public void render(){
-        renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), scale, currentAnimationFrame);
+        renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), canvas.scale(scale), currentAnimationFrame, canvas.SCALED_MIN_X, canvas.SCALED_MAX_X, SCALED_MIN_Y, SCALED_MAX_Y);
         drawHitRadius();
     }
 
