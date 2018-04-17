@@ -16,6 +16,8 @@ import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
+import static bullethell.graphic.Canvas.SCISSOR_HEIGHT;
+import static bullethell.graphic.Canvas.SCISSOR_Y;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Game{
@@ -122,7 +124,6 @@ public class Game{
             alpha = accumulator / interval;
 
             render(alpha);
-            renderer.draw();
 
             timer.updateFPS();
 
@@ -155,12 +156,14 @@ public class Game{
 
     private void render(float alpha){
         Animated.canvas.drawBorder(renderer);
+        renderer.draw(true);
 
         player.render(alpha);
         enemies.render(alpha);
         solids.render(alpha);
         powerUps.render(alpha);
         timeds.render();
+        renderer.draw(false);
     }
 
     private void wait(long start, long interval){

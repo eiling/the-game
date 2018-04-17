@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer{
+    private static final Renderer renderer = new Renderer();
+
     private static final int BUFFER_SIZE = Float.BYTES * 100000;
     private int vertexArrayID;
     private int vertexBufferID;
@@ -46,14 +48,13 @@ public class Renderer{
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public void draw(){
+    public void draw(boolean clear){
         vertices.flip();
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        if(clear) glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(programID);
 
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
         glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
 
         glDrawArrays(GL_TRIANGLES, 0, numVertices);
@@ -62,7 +63,7 @@ public class Renderer{
         numVertices = 0;
     }
 
-    public void drawTexture(float x, float y, float k, int texID, final float x0, final float xn, final float y0, final float yn){
+    public void drawTexture(float x, float y, float k, int texID){
         int i = texID * 4;
 
         float
@@ -70,15 +71,6 @@ public class Renderer{
                 y1 = y - k, y2 = y + k,
                 s1 = st[i], s2 = st[i + 2],
                 t1 = st[i + 1], t2 = st[i + 3];
-
-        /*if(x1 < x0){
-            s1 = ((x0 - x1) * (s2 - s1)) / (x2 - x1) + s1;
-            x1 = x0;
-        }*/ //bugged... weird...
-        if(x2 > xn){
-            s2 = ((xn - x1) * (s2 - s1)) / (x2 - x1) + s1;
-            x2 = xn;
-        }
 
         vertices.put(x1).put(y1).put(s1).put(t1);
         vertices.put(x2).put(y1).put(s2).put(t1);

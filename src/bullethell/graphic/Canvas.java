@@ -13,15 +13,15 @@ public class Canvas{
     public static final float MAX_Y = 16f;
     public static final float MIN_Y = 0f;
 
-    public final float SCALED_MAX_X;
-    public final float SCALED_MIN_X;
-    public static final float SCALED_MAX_Y = (MAX_Y * scaley + translatey) * (1 - borderwidth);
-    public static final float SCALED_MIN_Y = (MIN_Y * scaley + translatey) * (1 - borderwidth);
+    public final float SCISSOR_X;
+    public final float SCISSOR_WIDTH;
+    public static final float SCISSOR_Y = (MIN_Y * scaley + translatey) * (1 - borderwidth);
+    public static final float SCISSOR_HEIGHT = (MAX_Y * scaley + translatey) * (1 - borderwidth) - SCISSOR_Y;
 
     public Canvas(float x){
         translatex = x;
-        SCALED_MAX_X = (MAX_X * scalex + translatex) * (1 - borderwidth);
-        SCALED_MIN_X = (MIN_X * scalex + translatex) * (1 - borderwidth);
+        SCISSOR_X = (MIN_X * scalex + translatex) * (1 - borderwidth);
+        SCISSOR_WIDTH = (MAX_X * scalex + translatex) * (1 - borderwidth) - SCISSOR_X;
     }
 
     public float scaledx(float x){
@@ -38,12 +38,12 @@ public class Canvas{
 
     public void drawBorder(Renderer renderer){
         for(float x = -0.5f; x <= 0.501f; x += borderwidth * 0.1f)
-            renderer.drawTexture(x, -0.95f, borderwidth * 0.5f, 51, -1f, 1f, -1f, 1f);
+            renderer.drawTexture(x, -0.95f, borderwidth * 0.5f, 51);
         for(float y = -0.95f; y <= 0.951f; y += borderwidth * 0.1f)
-            renderer.drawTexture(0.5f, y, borderwidth * 0.5f, 51, -1f, 1f, -1f, 1f);
+            renderer.drawTexture(0.5f, y, borderwidth * 0.5f, 51);
         for(float x = -0.5f; x <= 0.501f; x += borderwidth * 0.1f)
-            renderer.drawTexture(x, 0.95f, borderwidth * 0.5f, 51, -1f, 1f, -1f, 1f);
+            renderer.drawTexture(x, 0.95f, borderwidth * 0.5f, 51);
         for(float y = -0.95f; y <= 0.951f; y += borderwidth * 0.1f)
-            renderer.drawTexture(-0.5f, y, borderwidth * 0.5f, 51, -1f, 1f, -1f, 1f);
+            renderer.drawTexture(-0.5f, y, borderwidth * 0.5f, 51);
     }
 }

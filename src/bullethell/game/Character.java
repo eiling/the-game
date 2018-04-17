@@ -78,6 +78,6 @@ public abstract class Character extends Entity{
 
         bullets.render(alpha);
 
-        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i, 0.95f, 0.05f, startingFrame, canvas.SCALED_MIN_X, canvas.SCALED_MAX_X, SCALED_MIN_Y, SCALED_MAX_Y);
+        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i, 0.95f, 0.05f, startingFrame);
     }
 }
