@@ -3,6 +3,7 @@ package bullethell.core;
 import bullethell.game.Animated;
 import bullethell.game.Character;
 import bullethell.game.Enemy;
+import bullethell.game.Moving;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Canvas;
@@ -25,8 +26,6 @@ public class Game{
     private GLFWKeyCallback keyCallback;
 
     private Window window;
-
-    private Renderer renderer;
 
     private Character player;
     private Enemies enemies;
@@ -73,8 +72,7 @@ public class Game{
         };
         window.setKeyCallback(keyCallback);
 
-        renderer = new Renderer();
-        renderer.init();
+        Renderer.renderer.init();
     }
 
     private void setup(){
@@ -84,11 +82,11 @@ public class Game{
         powerUps = new PowerUps();
         timeds = new Timeds();
 
-        Animated.renderer = renderer;
+        Animated.renderer = Renderer.renderer;
         Animated.canvas = new Canvas(-.5f);
         Enemy.solids = solids;
 
-        Animated.character = player;
+        Moving.character = player;
 
         //this will not exist
         enemies.add(new EnemyWithNoName(4.5f, 14f));
@@ -138,7 +136,7 @@ public class Game{
     }
 
     private void dispose(){
-        renderer.dispose();
+        Renderer.renderer.dispose();
         window.dispose();
     }
 
@@ -155,15 +153,15 @@ public class Game{
     }
 
     private void render(float alpha){
-        Animated.canvas.drawBorder(renderer);
-        renderer.draw(true);
+        Animated.canvas.drawBorder(Renderer.renderer);
+        Renderer.renderer.draw(true);
 
         player.render(alpha);
         enemies.render(alpha);
         solids.render(alpha);
         powerUps.render(alpha);
         timeds.render();
-        renderer.draw(false);
+        Renderer.renderer.draw(false);
     }
 
     private void wait(long start, long interval){

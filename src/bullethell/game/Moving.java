@@ -4,7 +4,9 @@ import bullethell.math.Vec2f;
 
 import static bullethell.graphic.Canvas.*;
 
-abstract class Moving extends Animated{
+public abstract class Moving extends Animated{
+    public static Character character;
+
     protected float velocity;
     protected Vec2f direction;
     final float hitRadius;

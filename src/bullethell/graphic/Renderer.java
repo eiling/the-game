@@ -11,8 +11,8 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-public class Renderer{
-    private static final Renderer renderer = new Renderer();
+public final class Renderer{
+    public static final Renderer renderer = new Renderer();
 
     private static final int BUFFER_SIZE = Float.BYTES * 100000;
     private int vertexArrayID;
