@@ -60,12 +60,12 @@ public class PowerUps{
         return false;
     }
 
-    public void render(Renderer renderer, float alpha){
+    public void render(float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.powerUp.render(renderer, alpha);
+            temp.powerUp.render(alpha);
             temp = temp.next;
         }
     }

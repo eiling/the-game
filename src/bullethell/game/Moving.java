@@ -1,9 +1,12 @@
 package bullethell.game;
 
-import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
-abstract class Moving extends Animated{
+import static bullethell.graphic.Canvas.*;
+
+public abstract class Moving extends Animated{
+    public static Character character;
+
     protected float velocity;
     protected Vec2f direction;
     final float hitRadius;
@@ -30,23 +33,22 @@ abstract class Moving extends Animated{
 
     protected abstract void move(float delta);
 
-    public void render(Renderer renderer, float alpha){
-        super.render(renderer);
+    public void render(float alpha){
+        super.render();
     }
 
     public abstract Timed explode();
 
     public boolean isOutOfCanvas(){
-        return isOutside(x - scale, x + scale, y - scale, y + scale);
-    }
-
-    private static boolean isOutside(float top, float bottom, float right, float left){
-        final float c = 1.5f; //canvas half-width
-        return top > c || bottom < -c || right > c || left < -c;
+        if(x + hitRadius < MIN_X) return true;
+        if(x - hitRadius > MAX_X) return true;
+        if(y + hitRadius < MIN_Y) return true;
+        if(y - hitRadius > MAX_Y) return true;
+        return false;
     }
 
     @Override
-    public void drawHitRadius(Renderer renderer){
-        //renderer.drawTexture(x, y, hitRadius, 43);
+    public void drawHitRadius(){
+        //renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), canvas.scale(hitRadius), 51);
     }
 }

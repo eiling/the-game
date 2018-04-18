@@ -1,9 +1,12 @@
 package bullethell.core;
 
+import bullethell.game.Animated;
 import bullethell.game.Character;
 import bullethell.game.Enemy;
+import bullethell.game.Moving;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
+import bullethell.graphic.Canvas;
 import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
@@ -14,6 +17,8 @@ import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
+import static bullethell.graphic.Canvas.SCISSOR_HEIGHT;
+import static bullethell.graphic.Canvas.SCISSOR_Y;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Game{
@@ -21,8 +26,6 @@ public class Game{
     private GLFWKeyCallback keyCallback;
 
     private Window window;
-
-    private Renderer renderer;
 
     private Character player;
     private Enemies enemies;
@@ -42,6 +45,7 @@ public class Game{
 
     private void start(){
         init();
+        setup();
         loop();
         dispose();
     }
@@ -56,7 +60,7 @@ public class Game{
         }
 
         /* Create GLFW window */
-        window = new Window(600, 600, "Bullet Hell");
+        window = new Window(720, 640, "Bullet Hell");
 
         keyCallback = new GLFWKeyCallback(){
             @Override
@@ -68,19 +72,24 @@ public class Game{
         };
         window.setKeyCallback(keyCallback);
 
-        renderer = new Renderer();
-        renderer.init();
+        Renderer.renderer.init();
+    }
 
-        player = new CharacterWithNoName(-0.5f, -0.5f);
+    private void setup(){
+        player = new CharacterWithNoName(4.5f, 2f);
         enemies = new Enemies();
         solids = new Solids();
         powerUps = new PowerUps();
         timeds = new Timeds();
 
+        Animated.renderer = Renderer.renderer;
+        Animated.canvas = new Canvas(-.5f);
         Enemy.solids = solids;
 
+        Moving.character = player;
+
         //this will not exist
-        enemies.add(new EnemyWithNoName(0f, 0.5f));
+        enemies.add(new EnemyWithNoName(4.5f, 14f));
         //enemies.add(new SolidWithNoName(0f, 0f));
 
         running = true;
@@ -113,7 +122,6 @@ public class Game{
             alpha = accumulator / interval;
 
             render(alpha);
-            renderer.draw();
 
             timer.updateFPS();
 
@@ -128,7 +136,7 @@ public class Game{
     }
 
     private void dispose(){
-        renderer.dispose();
+        Renderer.renderer.dispose();
         window.dispose();
     }
 
@@ -139,17 +147,21 @@ public class Game{
         powerUps.update(delta);
         timeds.update();
 
-        if(enemies.collided(player)) if(player.die()) running = false;
+        if(enemies.collided(player) || solids.collided(player)) if(player.die()) running = false;
         enemies.handleCollisions(player, timeds);
         solids.handleCollisions(player, timeds);
     }
 
     private void render(float alpha){
-        player.render(renderer, alpha);
-        enemies.render(renderer, alpha);
-        solids.render(renderer, alpha);
-        powerUps.render(renderer, alpha);
-        timeds.render(renderer);
+        Animated.canvas.drawBorder(Renderer.renderer);
+        Renderer.renderer.draw(true);
+
+        player.render(alpha);
+        enemies.render(alpha);
+        solids.render(alpha);
+        powerUps.render(alpha);
+        timeds.render();
+        Renderer.renderer.draw(false);
     }
 
     private void wait(long start, long interval){

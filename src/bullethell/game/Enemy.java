@@ -1,6 +1,5 @@
 package bullethell.game;
 
-import bullethell.game.solid.SolidWithNoName;
 import bullethell.math.Vec2f;
 import bullethell.util.lists.Bullets;
 import bullethell.util.lists.Solids;

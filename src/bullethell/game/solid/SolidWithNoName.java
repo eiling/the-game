@@ -7,8 +7,8 @@ import bullethell.math.Vec2f;
 
 public class SolidWithNoName extends Solid{
     public SolidWithNoName(float x, float y){
-        super(x, y, 0.2f, 1f, new Vec2f(1f, 0f),
-                29, 29, 0, 0.2f, 5);
+        super(x, y, 0.2f, 0.5f, new Vec2f(1f, 0f),
+                29, 29, 0, 0.2f, 1);
     }
 
     @Override
@@ -16,7 +16,9 @@ public class SolidWithNoName extends Solid{
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
 
-        direction.rotate(-0.05f);
+        direction.x = character.x - x;
+        direction.y = character.y - y;
+        direction.normalize();
     }
 
     @Override

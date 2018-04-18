@@ -47,12 +47,12 @@ public class Timeds {
         }
     }
 
-    public void render(Renderer renderer){
+    public void render(){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.timed.render(renderer);
+            temp.timed.render();
             temp = temp.next;
         }
     }

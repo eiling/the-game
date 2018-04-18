@@ -11,7 +11,9 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-public class Renderer{
+public final class Renderer{
+    public static final Renderer renderer = new Renderer();
+
     private static final int BUFFER_SIZE = Float.BYTES * 100000;
     private int vertexArrayID;
     private int vertexBufferID;
@@ -46,14 +48,13 @@ public class Renderer{
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public void draw(){
+    public void draw(boolean clear){
         vertices.flip();
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        if(clear) glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(programID);
 
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
         glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
 
         glDrawArrays(GL_TRIANGLES, 0, numVertices);
@@ -63,14 +64,20 @@ public class Renderer{
     }
 
     public void drawTexture(float x, float y, float k, int texID){
-        texID *= 4;
+        int i = texID * 4;
 
-        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
-        vertices.put(x + k).put(y - k).put(st[texID + 2]).put(st[texID + 1]);
-        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y - k).put(st[texID]).put(st[texID + 1]);
-        vertices.put(x + k).put(y + k).put(st[texID + 2]).put(st[texID + 3]);
-        vertices.put(x - k).put(y + k).put(st[texID]).put(st[texID + 3]);
+        float
+                x1 = x - k, x2 = x + k,
+                y1 = y - k, y2 = y + k,
+                s1 = st[i], s2 = st[i + 2],
+                t1 = st[i + 1], t2 = st[i + 3];
+
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y1).put(s2).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y2).put(s1).put(t2);
 
         numVertices += 6;
     }

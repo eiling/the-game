@@ -76,12 +76,12 @@ public class Solids{
         }
     }
 
-    public void render(Renderer renderer, float alpha){
+    public void render(float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.solid.render(renderer, alpha);
+            temp.solid.render(alpha);
             temp = temp.next;
         }
     }

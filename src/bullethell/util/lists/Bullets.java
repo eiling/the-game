@@ -62,12 +62,12 @@ public class Bullets{
         return false;
     }
 
-    public void render(Renderer renderer, float alpha){
+    public void render(float alpha){
         if(isEmpty()) return;
 
         Node temp = first;
         while(temp != null){
-            temp.bullet.render(renderer, alpha);
+            temp.bullet.render(alpha);
             temp = temp.next;
         }
     }

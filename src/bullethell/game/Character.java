@@ -1,8 +1,8 @@
 package bullethell.game;
 
-import bullethell.graphic.Renderer;
 import bullethell.math.Vec2f;
 
+import static bullethell.graphic.Canvas.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public abstract class Character extends Entity{
@@ -51,10 +51,10 @@ public abstract class Character extends Entity{
         x += delta * velocity * direction.x;
         y += delta * velocity * direction.y;
 
-        if(x - hitRadius < -1f) x = -1f + hitRadius;
-        else if(x + hitRadius > 1f) x = 1f - hitRadius;
-        if(y - hitRadius < -1f) y = -1f + hitRadius;
-        else if(y + hitRadius > 1f) y = 1f - hitRadius;
+        if(x - hitRadius < MIN_X) x = 0f + hitRadius;
+        else if(x + hitRadius > MAX_X) x = 9f - hitRadius;
+        if(y - hitRadius < MIN_Y) y = 0f + hitRadius;
+        else if(y + hitRadius > MAX_Y) y = 16f - hitRadius;
     }
 
     public void input(long windowID){
@@ -73,11 +73,11 @@ public abstract class Character extends Entity{
     }
 
     @Override
-    public void render(Renderer renderer, float alpha){
-        super.render(renderer, alpha);
+    public void render(float alpha){
+        super.render(alpha);
 
-        bullets.render(renderer, alpha);
+        bullets.render(alpha);
 
-        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i,0.95f, 0.05f, startingFrame);
+        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i, 0.95f, 0.05f, startingFrame);
     }
 }

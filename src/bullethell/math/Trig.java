@@ -1,13 +1,13 @@
 package bullethell.math;
 
-public interface Trig{
-    float PI = 3.14159265359f;
-    float HALF_PI = PI * 0.5f;
-    float TWO_PI = PI * 2f;
-    float TWO_PI_INV = 1 / (PI * 2f);
+public final class Trig{
+    public final static float PI = 3.14159265359f;
+    public final static float HALF_PI = PI * 0.5f;
+    public final static float TWO_PI = PI * 2f;
+    public final static float TWO_PI_INV = 1 / (PI * 2f);
 
-    float a2 = 2f / PI - 12f / (PI * PI);
-    float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);
+    private final static float a2 = 2f / PI - 12f / (PI * PI);
+    private final static float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);
 
     //from: http://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/
     private static float Hill(float x){
@@ -19,7 +19,7 @@ public interface Trig{
         return 1f + a2 * xx + a3 * xxx;
     }
 
-    static float sin(float x){
+    public static float sin(float x){
         // wrap x within [0, TWO_PI)
         final float a = x * TWO_PI_INV;
         x -= (int) a * TWO_PI;
@@ -37,7 +37,7 @@ public interface Trig{
             return -Hill(x - 3.0f * HALF_PI);
     }
 
-    static float cos(float x){
+    public static float cos(float x){
         return sin(x + HALF_PI);
     }
 }
