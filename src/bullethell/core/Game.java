@@ -3,11 +3,9 @@ package bullethell.core;
 import bullethell.game.Animated;
 import bullethell.game.Character;
 import bullethell.game.Enemy;
-import bullethell.game.Moving;
 import bullethell.game.characters.CharacterWithNoName;
 import bullethell.game.enemies.EnemyWithNoName;
 import bullethell.graphic.Canvas;
-import bullethell.graphic.Renderer;
 import bullethell.graphic.Window;
 import bullethell.util.*;
 import bullethell.util.lists.Enemies;
@@ -17,9 +15,9 @@ import bullethell.util.lists.Timeds;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
-import static bullethell.graphic.Canvas.SCISSOR_HEIGHT;
-import static bullethell.graphic.Canvas.SCISSOR_Y;
+import static bullethell.graphic.Renderer.renderer;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Game{
     private GLFWErrorCallback errorCallback;
@@ -72,7 +70,7 @@ public class Game{
         };
         window.setKeyCallback(keyCallback);
 
-        Renderer.renderer.init();
+        renderer.init();
     }
 
     private void setup(){
@@ -82,11 +80,12 @@ public class Game{
         powerUps = new PowerUps();
         timeds = new Timeds();
 
-        Animated.renderer = Renderer.renderer;
-        Animated.canvas = new Canvas(-.5f);
+        player.canvas = new Canvas(-.5f);
+
+        Animated.renderer = renderer;
         Enemy.solids = solids;
 
-        Moving.character = player;
+        Animated.character = player;
 
         //this will not exist
         enemies.add(new EnemyWithNoName(4.5f, 14f));
@@ -136,7 +135,7 @@ public class Game{
     }
 
     private void dispose(){
-        Renderer.renderer.dispose();
+        renderer.dispose();
         window.dispose();
     }
 
@@ -153,15 +152,33 @@ public class Game{
     }
 
     private void render(float alpha){
-        Animated.canvas.drawBorder(Renderer.renderer);
-        Renderer.renderer.draw(true);
+        renderer.clearBuffers();
+
+        //Draw without test and don't write to Stencil Buffer
+        glStencilFunc(GL_ALWAYS, 1, 0xff);
+        glStencilMask(0xff);
+
+        player.canvas.drawBackground();
+        renderer.draw();
+
+        //Draw with Stencil test
+        glStencilFunc(GL_EQUAL, 1, 0xff);
+        glStencilMask(0x00);
 
         player.render(alpha);
         enemies.render(alpha);
         solids.render(alpha);
         powerUps.render(alpha);
         timeds.render();
-        Renderer.renderer.draw(false);
+        renderer.draw();
+
+        //Draw without test and don't write to Stencil Buffer
+        glStencilFunc(GL_ALWAYS, 1, 0xff);
+        glStencilMask(0x00);
+
+        player.canvas.drawBorder();
+        player.drawLives();
+        renderer.draw();
     }
 
     private void wait(long start, long interval){

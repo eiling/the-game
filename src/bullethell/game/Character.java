@@ -1,11 +1,14 @@
 package bullethell.game;
 
+import bullethell.graphic.Canvas;
 import bullethell.math.Vec2f;
 
 import static bullethell.graphic.Canvas.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public abstract class Character extends Entity{
+    public Canvas canvas;
+
     public boolean shooting;
 
     private long wait; //for invulnerability time;
@@ -77,7 +80,9 @@ public abstract class Character extends Entity{
         super.render(alpha);
 
         bullets.render(alpha);
+    }
 
-        for(int i = 0; i < life; i++) renderer.drawTexture(-0.95f + 0.1f * i, 0.95f, 0.05f, startingFrame);
+    public void drawLives(){
+        for(int i = 0; i < life; i++) renderer.drawTextureSquare(-0.95f + 0.1f * i, 0.95f, 0.05f, startingFrame);
     }
 }

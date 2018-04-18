@@ -1,11 +1,10 @@
 package bullethell.game;
 
-import bullethell.graphic.Canvas;
 import bullethell.graphic.Renderer;
 
 public abstract class Animated{
     public static Renderer renderer;
-    public static Canvas canvas;
+    public static Character character;
 
     public float x, y;
     float scale;
@@ -51,7 +50,11 @@ public abstract class Animated{
     }
 
     public void render(){
-        renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), canvas.scale(scale), currentAnimationFrame);
+        renderer.drawTextureSquare(
+                character.canvas.scaledx(x),
+                character.canvas.scaledy(y),
+                character.canvas.scale(scale),
+                currentAnimationFrame);
         drawHitRadius();
     }
 

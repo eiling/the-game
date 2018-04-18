@@ -5,8 +5,6 @@ import bullethell.math.Vec2f;
 import static bullethell.graphic.Canvas.*;
 
 public abstract class Moving extends Animated{
-    public static Character character;
-
     protected float velocity;
     protected Vec2f direction;
     final float hitRadius;
@@ -49,6 +47,6 @@ public abstract class Moving extends Animated{
 
     @Override
     public void drawHitRadius(){
-        //renderer.drawTexture(canvas.scaledx(x), canvas.scaledy(y), canvas.scale(hitRadius), 51);
+        //renderer.drawTextureSquare(canvas.scaledx(x), canvas.scaledy(y), canvas.scale(hitRadius), 51);
     }
 }

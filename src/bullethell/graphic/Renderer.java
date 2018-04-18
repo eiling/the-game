@@ -46,12 +46,17 @@ public final class Renderer{
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glEnable(GL_STENCIL_TEST);
+        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     }
 
-    public void draw(boolean clear){
-        vertices.flip();
+    public void clearBuffers(){
+        glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
 
-        if(clear) glClear(GL_COLOR_BUFFER_BIT);
+    public void draw(){
+        vertices.flip();
 
         glUseProgram(programID);
 
@@ -63,7 +68,7 @@ public final class Renderer{
         numVertices = 0;
     }
 
-    public void drawTexture(float x, float y, float k, int texID){
+    public void drawTextureSquare(float x, float y, float k, int texID){
         int i = texID * 4;
 
         float
@@ -80,6 +85,12 @@ public final class Renderer{
         vertices.put(x1).put(y2).put(s1).put(t2);
 
         numVertices += 6;
+    }
+
+    void drawVertex(float x, float y, float s, float t){
+        vertices.put(x).put(y).put(s).put(t);
+
+        numVertices++;
     }
 
     public void dispose(){
