@@ -6,13 +6,10 @@ public final class Trig{
     public final static float TWO_PI = PI * 2f;
     public final static float TWO_PI_INV = 1 / (PI * 2f);
 
-    private final static float a2 = 2f / PI - 12f / (PI * PI);
-    private final static float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);
-
     //from: http://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/
     private static float Hill(float x){
-        /*final float a2 = 2f / PI - 12f / (PI * PI);
-        final float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);*/
+        final float a2 = 2f / PI - 12f / (PI * PI);
+        final float a3 = 16f / (PI * PI * PI) - 4f / (PI * PI);
         final float xx = x * x;
         final float xxx = xx * x;
 
