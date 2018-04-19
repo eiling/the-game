@@ -128,7 +128,7 @@ public class Game{
 
             window.update();
 
-            System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
+            //System.out.println("FPS: " + timer.getFPS() + "  --  UPS: " + timer.getUPS());
 
             //maybe put a fps limiter here... just maybe...
         }
@@ -156,6 +156,14 @@ public class Game{
 
         //Draw without test and don't write to Stencil Buffer
         glStencilFunc(GL_ALWAYS, 1, 0xff);
+        glStencilMask(0x00);
+
+        player.canvas.drawBorder();
+        player.drawLives();
+        renderer.draw();
+
+        //Draw without test and  write to Stencil Buffer
+        glStencilFunc(GL_ALWAYS, 1, 0xff);
         glStencilMask(0xff);
 
         player.canvas.drawBackground();
@@ -170,14 +178,6 @@ public class Game{
         solids.render(alpha);
         powerUps.render(alpha);
         timeds.render();
-        renderer.draw();
-
-        //Draw without test and don't write to Stencil Buffer
-        glStencilFunc(GL_ALWAYS, 1, 0xff);
-        glStencilMask(0x00);
-
-        player.canvas.drawBorder();
-        player.drawLives();
         renderer.draw();
     }
 

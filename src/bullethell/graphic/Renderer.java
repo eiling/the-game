@@ -87,6 +87,23 @@ public final class Renderer{
         numVertices += 6;
     }
 
+    void drawTextureRectangle(float x1, float x2, float y1, float y2, int texID){
+        int i = texID * 4;
+
+        float
+                s1 = st[i], s2 = st[i + 2],
+                t1 = st[i + 1], t2 = st[i + 3];
+
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y1).put(s2).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y1).put(s1).put(t1);
+        vertices.put(x2).put(y2).put(s2).put(t2);
+        vertices.put(x1).put(y2).put(s1).put(t2);
+
+        numVertices += 6;
+    }
+
     void drawVertex(float x, float y, float s, float t){
         vertices.put(x).put(y).put(s).put(t);
 

@@ -13,8 +13,8 @@ public class EnemyWithNoName extends Enemy{
     private static final float N = TWO_PI/24;
 
     public EnemyWithNoName(float x, float y){
-        super(x, y, 0.2f, 0.05f, new Vec2f(0f, 0f),
-                0, 1, 500, 0.2f,
+        super(x, y, 1f, 0.05f, new Vec2f(0f, 0f),
+                0, 1, 500, 1f,
                 10, 2000);
         solids.add(new SolidWithNoName(x, y));
     }
@@ -25,7 +25,7 @@ public class EnemyWithNoName extends Enemy{
 
     @Override
     protected void shoot(){
-        for(int i = 16; i <= 20; i ++){
+        for(int i = 0; i < 24; i ++){
             float theta = i*N;
             bullets.add(new BulletWithNoName(x, y, new Vec2f(cos(theta), sin(theta))));
         }

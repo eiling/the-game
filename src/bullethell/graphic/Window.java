@@ -36,7 +36,7 @@ public class Window{
         glfwMakeContextCurrent(id);
         GL.createCapabilities();
 
-        glClearColor(0f, 0f, 0.4f, 1f);
+        glClearColor(0.4f, 0.4f, 0.4f, 1f);
 
         glfwSwapInterval(1);
     }

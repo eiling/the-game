@@ -39,22 +39,10 @@ public class Canvas{
     }
 
     public void drawBorder(){
-        for(float x = -0.5f; x <= 0.501f; x += borderwidth * 0.1f)
-            renderer.drawTextureSquare(x, -0.95f, borderwidth * 0.5f, 51);
-        for(float y = -0.95f; y <= 0.951f; y += borderwidth * 0.1f)
-            renderer.drawTextureSquare(0.5f, y, borderwidth * 0.5f, 51);
-        for(float x = -0.5f; x <= 0.501f; x += borderwidth * 0.1f)
-            renderer.drawTextureSquare(x, 0.95f, borderwidth * 0.5f, 51);
-        for(float y = -0.95f; y <= 0.951f; y += borderwidth * 0.1f)
-            renderer.drawTextureSquare(-0.5f, y, borderwidth * 0.5f, 51);
+        renderer.drawTextureRectangle(-0.55f, 0.55f, -1f, 1f, 19);
     }
 
     public void drawBackground(){
-        renderer.drawVertex(BACKGROUND_X1, BACKGROUND_Y1, 0f, 0f);
-        renderer.drawVertex(BACKGROUND_X2, BACKGROUND_Y1, 0f, 0f);
-        renderer.drawVertex(BACKGROUND_X2, BACKGROUND_Y2, 0f, 0f);
-        renderer.drawVertex(BACKGROUND_X1, BACKGROUND_Y1, 0f, 0f);
-        renderer.drawVertex(BACKGROUND_X2, BACKGROUND_Y2, 0f, 0f);
-        renderer.drawVertex(BACKGROUND_X1, BACKGROUND_Y2, 0f, 0f);
+        renderer.drawTextureRectangle(BACKGROUND_X1, BACKGROUND_X2, BACKGROUND_Y1, BACKGROUND_Y2, 18);
     }
 }

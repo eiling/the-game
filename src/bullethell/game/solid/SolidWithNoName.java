@@ -7,8 +7,8 @@ import bullethell.math.Vec2f;
 
 public class SolidWithNoName extends Solid{
     public SolidWithNoName(float x, float y){
-        super(x, y, 0.2f, 0.5f, new Vec2f(1f, 0f),
-                29, 29, 0, 0.2f, 1);
+        super(x, y, 2f, 0.5f, new Vec2f(1f, 0f),
+                31, 31, 0, 2f, 1);
     }
 
     @Override
