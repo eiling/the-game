@@ -22,7 +22,6 @@ public abstract class Enemy extends Entity{
 
         long now = System.currentTimeMillis();
         if(now - last >= shootInterval){
-            System.out.println(now - last);
             shoot();
             last = now;
         }
